@@ -3,39 +3,45 @@
   <div class="class-centre-container">
     <h1 class="class-centre-title">{{ title }}</h1>
     <el-card class="class-centre-card">
-      <el-carousel height="150px">
+      <!-- <pdf src="D:\Users\yangy\Documents\GitHub\Medical-training-system\src\sample.pdf" /> -->
+      <el-carousel
+        class="class-centre-frame"
+        height="580px"
+      >
         <el-carousel-item
           v-for="item in courseList"
           :key="item.pic"
         >
-          <img
-            :src="item"
+          <el-image
             class="image"
-          >
+            :src="item"
+            fit="scale-down"
+          />
         </el-carousel-item>
       </el-carousel>
     </el-card>
-
   </div>
 </template>
 
 <script>
-// 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
-// 例如：import 《组件名称》 from '《组件路径》';
 import 'video.js/dist/video-js.css'
+// import pdf from 'vue-pdf'
 
 export default {
   name: 'CoursePage',
-  components: {},
+  // components: { pdf },
   data() {
     return {
       title: 'CoursePage',
       course_id: '',
-      courseList: [require('@/icons/img/testpic1.jpg'), require('@/icons/img/testpic2.jpg'), require('@/icons/img/testpic3.jpg')]
+      courseList: [require('@/sample/pic1.jpg'), require('@/sample/pic2.jpg'), require('@/sample/pic3.jpg'), require('@/sample/pic4.jpg'), require('@/sample/pic5.jpg'), require('@/sample/pic6.jpg'), require('@/sample/pic7.jpg'), require('@/sample/pic8.jpg'), require('@/sample/pic9.jpg'), require('@/sample/pic10.jpg'), require('@/sample/pic11.jpg')]
     }
   },
   created() {
     this.course_id = this.$route.params
+  },
+  methods: {
+
   }
 }
 </script>
@@ -52,19 +58,10 @@ export default {
     }
     .class-centre-card {
       margin: 30px;
-      min-height: 600px;
-      .el-carousel__item h3 {
-        color: #475669;
-        font-size: 14px;
-        opacity: 0.75;
-        line-height: 450px;
-        margin: 0;
-      }
-      .el-carousel__item:nth-child(2n) {
-        background-color: #99a9bf;
-      }
-      .el-carousel__item:nth-child(2n + 1) {
-        background-color: #d3dce6;
+      min-height: 580px;
+      .image {
+        height: 100%;
+        width: 100%;
       }
     }
   }

@@ -31,13 +31,13 @@
         <el-form class="info-form">
           <el-form-item label="用户名">
             <el-input
-              v-model="user.id"
+              v-model="user.login_id"
               :disabled="true"
             />
           </el-form-item>
           <el-form-item label="姓名">
             <el-input
-              v-model="user.name"
+              v-model="user.user_name"
               :disabled="true"
             />
           </el-form-item>
@@ -75,8 +75,8 @@ export default {
       type: Object,
       default: () => {
         return {
-          id: '',
-          name: '',
+          login_id: '',
+          user_name: '',
           sex: '',
           post: '',
           email: '',

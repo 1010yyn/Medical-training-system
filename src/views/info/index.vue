@@ -45,6 +45,8 @@ import UserCard from './components/UserCard'
 import CourseHistory from './components/CourseHistory'
 import ExamHistory from './components/ExamHistory'
 import infoModify from './components/InfoModify'
+import { getInfo } from '@/api/user'
+
 
 export default {
   name: 'Profile',
@@ -60,15 +62,12 @@ export default {
   },
   methods: {
     getUser() {
-      this.user = {
-        id: 1,
-        name: this.name,
-        sex: '女',
-        post: '护士',
-        email: 'admin@test.com',
-        office: '一个科室啦',
-        avatar: this.avatar
-      }
+      const data = { type: 'getInfo', user_id: '1' }
+      getInfo(data).then((response) => {
+        console.log('个人信息：')
+        console.log(response)
+        this.user = response.data[0]
+      })
     }
   }
 }
