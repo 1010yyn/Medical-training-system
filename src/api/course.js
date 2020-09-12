@@ -1,7 +1,6 @@
 import request from '@/utils/request2'
 import Qs from 'qs'
 
-
 export function getCourseHistory(data) {
     return request({
         url: '/MedicalServer/myServer',

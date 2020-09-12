@@ -5,31 +5,13 @@
     <el-card class="class-centre-card">
       <p class="stems">{{ currentIndex+1 }}. {{ exam[currentIndex].question_items }}</p>
       <div class="img-container">
-        <img
-          class="image"
-          :src="testpic1"
-        >
+        <img class="image" :src="testpic1" />
       </div>
-      <el-table
-        style="width: 80%;margin:0 auto;margin-bottom:30px;"
-        :data="answerList"
-      >
-        <el-table-column
-          label="步骤"
-          align="center"
-          min-width="120"
-          prop="index"
-        >
-          <template slot-scope="scope">
-            步骤{{ scope.$index +1 }}
-          </template>
+      <el-table style="width: 80%;margin:0 auto;margin-bottom:30px;" :data="answerList">
+        <el-table-column label="步骤" align="center" min-width="120" prop="index">
+          <template slot-scope="scope">步骤{{ scope.$index +1 }}</template>
         </el-table-column>
-        <el-table-column
-          label="答案"
-          min-width="120"
-          align="center"
-          prop="answer"
-        >
+        <el-table-column label="答案" min-width="120" align="center" prop="answer">
           <template slot-scope="scope">
             <el-button
               type="primary"
@@ -56,32 +38,20 @@
       </el-table>
       <div class="button">
         <div style="margin:30px;">
-          <el-button
-            type="primary"
-            icon="el-icon-edit"
-            circle
-          /> 添加/修改答案
-          <el-button
-            type="success"
-            icon="el-icon-phone-outline"
-            circle
-          /> 试听答案
-          <el-button
-            type="danger"
-            icon="el-icon-delete"
-            circle
-          /> 删除答案
+          <el-button type="primary" icon="el-icon-edit" circle />添加/修改答案
+          <el-button type="success" icon="el-icon-phone-outline" circle />试听答案
+          <el-button type="danger" icon="el-icon-delete" circle />删除答案
         </div>
         <el-button-group>
           <!-- <el-button
             type="primary"
             icon="el-icon-arrow-left"
             @click="handlePrior(currentIndex)"
-          >上一题</el-button> -->
-          <el-button
-            type="primary"
-            @click="handleNext(currentIndex)"
-          >下一题<i class="el-icon-arrow-right el-icon--right" /></el-button>
+          >上一题</el-button>-->
+          <el-button type="primary" @click="handleNext(currentIndex)">
+            下一题
+            <i class="el-icon-arrow-right el-icon--right"></i>
+          </el-button>
         </el-button-group>
       </div>
     </el-card>

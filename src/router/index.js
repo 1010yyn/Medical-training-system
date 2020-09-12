@@ -146,10 +146,17 @@ export const constantRoutes = [
     component: Layout,
     children: [
       {
-        path: 'index',
+        path: 'messageManagerCentre',
         name: 'MessageManager',
-        component: () => import('@/views/messageManager/index'),
+        component: () => import('@/views/messageManager/messageManagerCentre'),
         meta: { title: '通知管理', icon: 'el-icon-bell' }
+      },
+      {
+        path: 'modifyPage',
+        name: 'MessageModifyPage',
+        component: () => import('@/views/messageManager/modifyPage'),
+        meta: { title: '通知管理', noCache: true },
+        hidden: true
       }
     ]
   },

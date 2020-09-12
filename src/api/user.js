@@ -10,6 +10,13 @@ export function login(data) {
   })
 }
 
+export function logout() {
+  return request({
+    url: '/vue-admin-template/user/logout',
+    method: 'post'
+  })
+}
+
 export function getInfo(data) {
   return request({
     url: '/MedicalServer/myServer',
@@ -19,9 +26,11 @@ export function getInfo(data) {
   })
 }
 
-export function logout() {
+export function modifyInfo(data) {
   return request({
-    url: '/vue-admin-template/user/logout',
-    method: 'post'
+    url: '/MedicalServer/myServer',
+    method: 'post',
+    param: Qs.stringify(data),
+    data: Qs.stringify(data)
   })
 }

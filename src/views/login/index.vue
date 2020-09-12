@@ -45,38 +45,18 @@
           auto-complete="on"
           @keyup.enter.native="handleLogin"
         />
-        <span
-          class="show-pwd"
-          @click="showPwd"
-        >
+        <span class="show-pwd" @click="showPwd">
           <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
       </el-form-item>
 
-      <div
-        class="choose"
-        style="width:100%;margin-bottom:30px"
-      >
-        <input
-          id="ordinary"
-          v-model="job"
-          value="ordinary"
-          type="radio"
-        >
+      <div class="choose" style="width:100%;margin-bottom:30px">
+        <input id="ordinary" v-model="job" value="ordinary" type="radio" />
         <label for="ordinary">医护人员</label>
-        <input
-          id="test_manager"
-          v-model="job"
-          value="test_manager"
-          type="radio"
-        >
+        <input id="test_manager" v-model="job" value="test_manager" type="radio" />
         <label for="test_manager">题库管理员</label>
-        <input
-          id="system_manager"
-          v-model="job"
-          value="系统管理员"
-          type="radio"
-        ><label for="system_manager">系统管理员</label>
+        <input id="system_manager" v-model="job" value="系统管理员" type="radio" />
+        <label for="system_manager">系统管理员</label>
       </div>
 
       <el-button
@@ -158,7 +138,7 @@ export default {
           login(data).then((response) => {
             console.log(response)
             const user_id = response.data
-            this.$router.push({ name: 'CourseList', params: { user_id: user_id }})
+            this.$router.push({ name: 'CourseList', params: { user_id: user_id } })
           })
         } else {
           console.log('error submit!!')

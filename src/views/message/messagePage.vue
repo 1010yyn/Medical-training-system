@@ -3,11 +3,7 @@
   <div class="class-centre-container">
     <h1 class="class-centre-title">{{ title }}</h1>
     <el-card class="class-centre-card">
-      <el-button
-        class="exit"
-        type="primary"
-        @click="exit"
-      >返回</el-button>
+      <el-button class="exit" type="primary" @click="exit">返回</el-button>
       <h1 class="message-title">{{ message.title }}</h1>
       <h3 align="center">{{ message.office }}</h3>
       <p class="message-content">{{ message.text }}</p>
@@ -42,7 +38,6 @@ export default {
 }
 </script>
 <style lang='scss' scoped>
-// @import url(); 引入公共css类
 .class-centre {
   &-container {
     margin: 30px;

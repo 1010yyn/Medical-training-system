@@ -1,41 +1,27 @@
 <template>
   <div style="padding:30px;">
-    <el-form>
+    <el-form class="user_info">
       <el-form-item label="头像">
-        <el-image
-          :src="head1"
-          style="width:200px; height:200px;"
-        />
+        <el-image :src="head1" style="width:200px; height:200px;" />
         <!-- TODO完成头像修改 -->
       </el-form-item>
       <el-form-item label="旧密码">
-        <el-input
-          v-model.trim="user.oldPassword"
-          show-password
-        />
+        <el-input v-model.trim="user.oldPassword" show-password />
       </el-form-item>
       <el-form-item label="新密码">
-        <el-input
-          v-model.trim="user.newPassword"
-          show-password
-        />
+        <el-input v-model.trim="user.newPassword" show-password />
       </el-form-item>
       <el-form-item label="重复新密码">
-        <el-input
-          v-model.trim="user.newPassword2"
-          show-password
-        />
+        <el-input v-model.trim="user.newPassword2" show-password />
       </el-form-item>
       <el-form-item>
-        <el-button
-          type="primary"
-          @click="submit"
-        >提交修改</el-button>
+        <el-button type="primary" @click="submit">提交修改</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 <script>
+import { modifyInfo } from '@/api/user'
 
 export default {
   name: 'Info',
@@ -64,7 +50,7 @@ export default {
   methods: {
     // TODO--提交修改
     submit() {
-
+      modifyInfo()
     }
   }
 }
