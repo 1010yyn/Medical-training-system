@@ -34,3 +34,12 @@ export function modifyInfo(data) {
     data: Qs.stringify(data)
   })
 }
+
+export function deleteUser(data) {
+  return request({
+    url: '/MedicalServer/myServer',
+    method: 'post',
+    param: Qs.stringify(data),
+    data: Qs.stringify(data)
+  })
+}

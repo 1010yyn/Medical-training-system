@@ -2,46 +2,21 @@
   <div class="class-centre-container">
     <h1 class="class-centre-title">{{ title }}</h1>
     <div class="class-centre-table">
-      <el-table
-        style="width: 100%;padding-top: 15px;"
-        :data="list"
-        @row-click="openMessage"
-      >
-        <el-table-column
-          label="标题"
-          min-width="200"
-          prop="title"
-        >
-          <template slot-scope="scope">
-            {{ scope.row.title }}
-          </template>
+      <el-table style="width: 100%;padding-top: 15px;" :data="list" @row-click="openMessage">
+        <el-table-column label="标题" min-width="200" prop="title">
+          <template slot-scope="scope">{{ scope.row.title }}</template>
         </el-table-column>
-        <el-table-column
-          label="发布科室"
-          width="195"
-          align="center"
-          prop="office"
-        >
-          <template slot-scope="scope">
-            {{ scope.row.office }}
-          </template>
+        <el-table-column label="发布科室" width="195" align="center" prop="office">
+          <template slot-scope="scope">{{ scope.row.office }}</template>
         </el-table-column>
-        <el-table-column
-          label="时间"
-          width="100"
-          align="center"
-          prop="time"
-        >
+        <el-table-column label="时间" width="100" align="center" prop="time">
           <!-- 作用在于设置显示格式 -->
           <template slot-scope="{row}">
-            <el-tag :type="row.time ">
-              {{ row.time }}
-            </el-tag>
+            <el-tag :type="row.time ">{{ row.time }}</el-tag>
           </template>
         </el-table-column>
       </el-table>
     </div>
-
   </div>
 </template>
 
@@ -56,7 +31,7 @@ export default {
   },
   methods: {
     openMessage(row, event, column) {
-      this.$router.push({ name: 'MessagePage', params: { message_id: row.message_id }})
+      this.$router.push({ name: 'MessagePage', params: { message_id: row.message_id } })
     }
   }
 }

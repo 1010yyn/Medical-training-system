@@ -27,3 +27,12 @@ export function modifyMessage(data) {
         data: Qs.stringify(data)
     })
 }
+
+export function deleteMessage(data) {
+    return request({
+        url: '/MedicalServer/myServer',
+        method: 'post',
+        param: Qs.stringify(data),
+        data: Qs.stringify(data)
+    })
+}

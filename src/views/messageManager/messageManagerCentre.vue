@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { deleteMessage } from '@/api/message'
 
 export default {
   data() {
@@ -38,7 +39,7 @@ export default {
           time: '2332r'
         },
         {
-          message_id: '12354',
+          message_id: '33214',
           title: '123dwrewr3',
           office: 'weerqqewqedfvfhdewq',
           time: '213432332r'
@@ -53,7 +54,17 @@ export default {
       this.$router.push({ name: 'MessageModifyPage', params: { message_id: this.list[index].message_id } })
     },
     handleDelete(index) {
-      // TODO--删除
+      // 删除message
+      const data = { type: 'deleteMessage', message_id: this.list[index].message_id }
+      deleteMessage(data).then((response) => {
+        console.log(response)
+        if (response.data === true) {
+          this.list.splice(index, 1)// 从列表中删去
+          console.log('成功删除')
+        } else {
+          console.log('删除失败')
+        }
+      })
     }
   }
 }

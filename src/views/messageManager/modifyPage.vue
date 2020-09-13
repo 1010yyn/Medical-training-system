@@ -23,6 +23,7 @@
 
 <script>
 import { getMessage, modifyMessage } from '@/api/message'
+
 export default {
   data() {
     return {
@@ -31,8 +32,6 @@ export default {
       message: ''
     }
   },
-  computed: {},
-  watch: {},
   created() {
     this.message_id = this.$route.params.message_id
     console.log('message:' + this.message_id)
