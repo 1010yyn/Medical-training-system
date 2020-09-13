@@ -19,6 +19,24 @@ export function getExam(data) {
     })
 }
 
+export function getExamInfo(data) {
+    return request({
+        url: '/MedicalServer/myServer',
+        method: 'post',
+        param: Qs.stringify(data),
+        data: Qs.stringify(data)
+    })
+}
+
+export function updateExamInfo(data) {
+    return request({
+        url: '/MedicalServer/myServer',
+        method: 'post',
+        param: Qs.stringify(data),
+        data: Qs.stringify(data)
+    })
+}
+
 export function saveAnswer(data) {
     return request({
         url: '/MedicalServer/myServer',

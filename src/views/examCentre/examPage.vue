@@ -5,7 +5,7 @@
     <el-card class="class-centre-card">
       <p class="stems">{{ currentIndex+1 }}. {{ exam[currentIndex].question_items }}</p>
       <div class="img-container">
-        <img class="image" :src="testpic1" />
+        <img class="image" :src="testpic1" />·
       </div>
       <el-table style="width: 80%;margin:0 auto;margin-bottom:30px;" :data="answerList">
         <el-table-column label="步骤" align="center" min-width="120" prop="index">

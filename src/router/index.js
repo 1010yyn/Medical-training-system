@@ -179,8 +179,29 @@ export const constantRoutes = [
       {
         path: 'index',
         name: 'ExamManager',
-        component: () => import('@/views/examManager/index'),
+        component: () => import('@/views/examManager/examManagerCentre'),
         meta: { title: '考试管理', icon: 'el-icon-document' }
+      },
+      {
+        path: 'addPage',
+        name: 'ExamAddPage',
+        component: () => import('@/views/examManager/addPage'),
+        meta: { title: '考试管理', noCache: true },
+        hidden: true
+      },
+      {
+        path: 'modifyPage',
+        name: 'ExamModifyPage',
+        component: () => import('@/views/examManager/modifyPage'),
+        meta: { title: '考试管理', noCache: true },
+        hidden: true
+      },
+      {
+        path: 'modifyQuestionPage',
+        name: 'QuestionModifyPage',
+        component: () => import('@/views/examManager/modifyQuestionPage'),
+        meta: { title: '考题管理', noCache: true },
+        hidden: true
       }
     ]
   }, {

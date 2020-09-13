@@ -3,7 +3,7 @@
     <h1 class="class-centre-title">{{ title }}</h1>
     <el-card class="class-centre-card">
       <el-form ref="user" class="class-centre-form" :model="user" label-width="120px">
-        <el-form-item label="头像">
+        <el-form-item label="头 像">
           <el-image :src="head1" style="width:200px; height:200px;" />
         </el-form-item>
         <el-form-item label="UID">

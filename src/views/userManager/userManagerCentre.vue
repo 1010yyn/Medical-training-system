@@ -2,6 +2,7 @@
   <div class="class-centre-container">
     <h1 class="class-centre-title">{{ title }}</h1>
     <div class="class-centre-table">
+      <el-button type="primary" icon="el-icon-edit" @click="addUser">添加新用户</el-button>
       <el-table style="width: 100%;padding-top: 15px;" :data="list">
         <el-table-column label="UID" min-width="200" align="center" prop="user_id">
           <template slot-scope="scope">{{ scope.row.user_id }}</template>
@@ -33,6 +34,10 @@ export default {
     }
   },
   methods: {
+    addUser() {
+      // TODO--添加用户
+      this.$router.push({ name: 'UserModifyPage' })
+    },
     handleModify(index) {
       console.log('user_id:' + this.list[index].user_id)
       this.$router.push({ name: 'UserModifyPage', params: { user_id: this.list[index].user_id } })

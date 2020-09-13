@@ -2,6 +2,7 @@
   <div class="class-centre-container">
     <h1 class="class-centre-title">{{ title }}</h1>
     <div class="class-centre-table">
+      <el-button type="primary" icon="el-icon-edit" @click="addMessage">添加新通知</el-button>
       <el-table style="width: 100%;padding-top: 15px;" :data="list">
         <el-table-column label="标题" min-width="200" prop="title">
           <template slot-scope="scope">{{ scope.row.title }}</template>
@@ -48,6 +49,10 @@ export default {
     }
   },
   methods: {
+    addMessage() {
+      // TODO--添加通知
+      this.$router.push({ name: 'MesasgeAddPage' })
+    },
     handleModify(index) {
       // 跳转至编辑message页面
       console.log(index)
