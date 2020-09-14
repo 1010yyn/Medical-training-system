@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { deleteUser } from '@/api/user'
+import { deleteUser, getUserList } from '@/api/user'
 export default {
   data() {
     return {
@@ -33,7 +33,17 @@ export default {
       list: [{ user_id: '1', user_name: '12313', office: '康复科' }, { user_id: '2', user_name: '1fdsg13', office: '放射科' }]
     }
   },
+  created() {
+    this.initUserList()
+  },
   methods: {
+    initUserList() {
+      const data = { type: 'getUserList' }
+      getUserList(data).then((response) => {
+        console.log(response.data)
+        // this.list = response.data
+      })
+    },
     addUser() {
       // TODO--添加用户
       this.$router.push({ name: 'UserModifyPage' })

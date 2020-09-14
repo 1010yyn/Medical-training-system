@@ -1,8 +1,8 @@
 <template>
   <div class="class-centre-container">
     <h1 class="class-centre-title">{{ title }}</h1>
-    <el-card>
-      <p>正文</p>
+    <el-card class="class-centre-card">
+      <p>正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文</p>
     </el-card>
   </div>
 </template>
@@ -29,9 +29,9 @@ export default {
       border-bottom: solid 2px #409eff;
       margin: 30px;
     }
-    .class-centre-table {
-      margin-left: 60px;
-      margin-right: 60px;
+    .class-centre-card {
+      margin-right: 30px;
+      margin-left: 30px;
     }
   }
 }

@@ -17,6 +17,15 @@ export function logout() {
   })
 }
 
+export function getUserList(data) {
+  return request({
+    url: '/MedicalServer/myServer',
+    method: 'post',
+    param: Qs.stringify(data),
+    data: Qs.stringify(data)
+  })
+}
+
 export function getInfo(data) {
   return request({
     url: '/MedicalServer/myServer',

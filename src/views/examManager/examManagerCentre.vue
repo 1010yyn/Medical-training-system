@@ -28,14 +28,26 @@
 </template>
 
 <script>
+import { getExamList } from '@/api/exam'
 export default {
   data() {
     return {
       title: '考试管理',
-      list: [{ exam_id: '2020082601', exam_title: '12313', office: 'wewqewq', start: '2332r', end: '456456' }, { exam_id: '2020082802', exam_title: '2fdgfds2', office: 'weerqqewqedfvfhdewq', start: '2332r', end: '456456' }]
+      list: ''
     }
   },
+  created() {
+    // 初始化考试列表
+    this.initExamList()
+  },
   methods: {
+    initExamList() {
+      const data = { type: 'getExamList' }
+      getExamList(data).then((response) => {
+        console.log(response.data)
+        this.list = response.data
+      })
+    },
     addExam() {
       this.$router.push({ name: 'ExamAddPage' })
     },

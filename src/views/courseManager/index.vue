@@ -3,15 +3,17 @@
     <h1 class="class-centre-title">{{ title }}</h1>
     <div class="class-centre-table">
       <el-table style="width: 100%;padding-top: 15px;" :data="list" @row-click="openMessage">
-        <el-table-column label="标题" min-width="200" prop="title">
-          <template slot-scope="scope">{{ scope.row.title }}</template>
+        <el-table-column label="标题" min-width="200" prop="course_title">
+          <template slot-scope="scope">{{ scope.row.course_title }}</template>
         </el-table-column>
-        <el-table-column label="发布科室" width="195" align="center" prop="office">
+        <el-table-column label="发布科室" min-width="100" align="center" prop="office">
           <template slot-scope="scope">{{ scope.row.office }}</template>
         </el-table-column>
-        <el-table-column label="时间" width="100" align="center" prop="time">
-          <!-- 作用在于设置显示格式 -->
-          <template slot-scope="{row}">{{ row.time }}</template>
+        <el-table-column label="起始时间" min-width="100" align="center" prop="start">
+          <template slot-scope="scope">{{ scope.row.start }}</template>
+        </el-table-column>
+        <el-table-column label="结束时间" min-width="100" align="center" prop="end">
+          <template slot-scope="scope">{{ scope.row.end }}</template>
         </el-table-column>
         <el-table-column label="管理" min-width="100" align="center" prop="manage">
           <template slot-scope="scope">
@@ -25,6 +27,7 @@
 </template>
 
 <script>
+import { getCourseList } from '@/api/course'
 export default {
   data() {
     return {
@@ -32,7 +35,18 @@ export default {
       list: [{ message_id: '1111', title: '12313', office: 'wewqewq', time: '2332r' }, { title: '123dwrewr3', office: 'weerqqewqedfvfhdewq', time: '213432332r' }]
     }
   },
+  created() {
+    // 初始化课程列表
+    this.initCourseList()
+  },
   methods: {
+    initCourseList() {
+      const data = { type: 'getCourseList' }
+      getCourseList(data).then((response) => {
+        console.log(response.data)
+        this.list = response.data
+      })
+    },
     openMessage(row, event, column) {
       this.$router.push({ name: 'MessagePage', params: { message_id: row.message_id } })
     }
