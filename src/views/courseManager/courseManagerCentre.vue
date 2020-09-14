@@ -10,7 +10,6 @@
       <el-table
         style="width: 100%;padding-top: 15px;"
         :data="list"
-        @row-click="openMessage"
       >
         <el-table-column
           label="标题"

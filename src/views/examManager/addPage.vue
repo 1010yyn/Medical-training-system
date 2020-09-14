@@ -41,13 +41,21 @@ export default {
     return {
       title: '添加考试信息',
       id: '',
-      exam: ''
+      exam: {},
+      exam_id: '',
+      timer: new Date(),
+      CurrentTime: ''
     }
   },
   methods: {
     onSubmit() {
-      // TODO--生成exam_id
-      this.$router.push({ name: 'QuestionModifyPage', exam: this.exam.exam_id })
+      // 生成exam_id
+      this.CurrentTime = this.timer.getFullYear() + '' + (this.timer.getMonth() + 1) + this.timer.getDate() + '01'
+      console.log(this.CurrentTime)
+      this.exam.exam_id = this.CurrentTime
+      console.log(this.exam.exam_id)
+      this.exam_id = this.CurrentTime
+      this.$router.push({ name: 'QuestionModifyPage', exam_id: this.exam_id, type: 'new' })
     },
     onCancel() {
       this.$router.push({ name: 'ExamManager' })

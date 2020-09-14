@@ -192,7 +192,7 @@ module.exports = {
     'array-bracket-spacing': [2, 'never'],
     "vue/html-self-closing": ["error", {
       "html": {
-        "void": "always",
+        "void": "never",
         "normal": "never",
         "component": "always"
       },
