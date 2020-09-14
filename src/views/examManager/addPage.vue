@@ -2,18 +2,32 @@
   <div class="class-centre-container">
     <h1 class="class-centre-title">{{ title }}</h1>
     <el-card class="class-centre-card">
-      <el-form ref="message" class="class-centre-form" :model="message" label-width="120px">
+      <el-form
+        ref="message"
+        class="class-centre-form"
+        :model="message"
+        label-width="120px"
+      >
         <el-form-item label="标 题">
-          <el-input v-model="message.message_title" />
+          <el-input v-model="exam.exam_title" />
         </el-form-item>
         <el-form-item label="科 室">
-          <el-input v-model="message.office" />
+          <el-input v-model="exam.office" />
         </el-form-item>
-        <el-form-item label="正 文">
-          <el-input v-model="message.text" type="textarea" />
+        <el-form-item label="起始时间">
+          <el-input v-model="exam.start" />
+        </el-form-item>
+        <el-form-item label="结束时间">
+          <el-input v-model="exam.end" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit">提交</el-button>
+          <el-tag>点击确定后进入试题编辑</el-tag>
+        </el-form-item>
+        <el-form-item>
+          <el-button
+            type="primary"
+            @click="onSubmit"
+          >确定</el-button>
           <el-button @click="onCancel">取 消</el-button>
         </el-form-item>
       </el-form>
@@ -22,6 +36,25 @@
 </template>
 
 <script>
+export default {
+  data() {
+    return {
+      title: '添加考试信息',
+      id: '',
+      exam: ''
+    }
+  },
+  methods: {
+    onSubmit() {
+      // TODO--生成exam_id
+      this.$router.push({ name: 'QuestionModifyPage', exam: this.exam.exam_id })
+    },
+    onCancel() {
+      this.$router.push({ name: 'ExamManager' })
+    }
+  }
+}
+
 </script>
 
 <style lang='scss' scoped>
@@ -33,15 +66,11 @@
       line-height: 46px;
       color: #409eff;
       border-bottom: solid 2px #409eff;
-      margin: 30px;
+      margin-bottom: 30px;
     }
     .class-centre-card {
       margin-right: 30px;
       margin-left: 30px;
-      min-height: 600px;
-      .class-centre-form {
-        margin-right: 60px;
-      }
     }
   }
 }
