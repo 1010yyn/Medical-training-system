@@ -48,7 +48,7 @@
         >
           <img
             class="atmosphere"
-            :src="img"
+            :src="item.img"
           >
           <el-button
             class="add"
@@ -71,8 +71,8 @@ export default {
     return {
       title: 'CoursePage',
       course_id: '',
-      img: require('@/icons/img/head1.jpg'),
-      list: [{ name: 1 }, { name: 2 }, { name: 3 }],
+      img: [require('@/icons/img/head1.jpg'), require('@/icons/img/head2.jpg'), require('@/icons/img/head3.jpg')],
+      list: [{ name: 1, img: require('@/icons/img/head1.jpg') }, { name: 2, img: require('@/icons/img/head2.jpg') }, { name: 3, img: require('@/icons/img/head3.jpg') }],
       courseList: [require('@/sample/pic1.jpg'), require('@/sample/pic2.jpg'), require('@/sample/pic3.jpg'), require('@/sample/pic4.jpg'), require('@/sample/pic5.jpg'), require('@/sample/pic6.jpg'), require('@/sample/pic7.jpg'), require('@/sample/pic8.jpg'), require('@/sample/pic9.jpg'), require('@/sample/pic10.jpg'), require('@/sample/pic11.jpg')]
     }
   },
@@ -82,7 +82,7 @@ export default {
   methods: {
     onFirstClick() {
       console.log('点击第一个')
-      var tmp = { name: 888 }// 在列表最前面添加一个元素
+      var tmp = { name: 888, img: require('@/icons/img/head1.jpg') }// 在列表最前面添加一个元素
       this.list.unshift(tmp)
     },
     onclick(item) {
@@ -93,7 +93,7 @@ export default {
       console.log(oldList)
       console.log('索引：' + index)
       console.log(newList)
-      const newItem = this.list[0]
+      const newItem = this.list[index]
       newItem.name = '324'// 一个测试
       this.list = oldList.concat(newItem, newList) // 已合并的方式插入新的item
       console.log(this.list)
