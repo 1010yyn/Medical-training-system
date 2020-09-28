@@ -51,11 +51,11 @@
       </el-form-item>
 
       <div class="choose" style="width:100%;margin-bottom:30px">
-        <input id="ordinary" v-model="job" value="ordinary" type="radio" />
+        <input id="ordinary" v-model="job" value="ordinary" type="radio">
         <label for="ordinary">医护人员</label>
-        <input id="test_manager" v-model="job" value="test_manager" type="radio" />
+        <input id="test_manager" v-model="job" value="test_manager" type="radio">
         <label for="test_manager">题库管理员</label>
-        <input id="system_manager" v-model="job" value="系统管理员" type="radio" />
+        <input id="system_manager" v-model="job" value="系统管理员" type="radio">
         <label for="system_manager">系统管理员</label>
       </div>
 
