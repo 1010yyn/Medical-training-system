@@ -54,41 +54,39 @@
         </div>
         <div class="card-body">
           <!--<h6 class="card-title">Special title treatment</h6>-->
-          <el-button
-            class="card add_section"
-            type="primary"
-            circle
-          >+</el-button>
-          <li class="flow_item">
-            <div class="card flow"></div>
-            <el-button
-              class="card add_section"
-              type="primary"
-              circle
-            >+</el-button>
+          <li
+            v-for="item in list"
+            :key="item"
+          >
+            <div
+              class="show"
+              v-show="item.isShow"
+              :style="{backgroundImage:'url('+item.pic+')'}"
+            >
+            </div>
           </li>
-          <li class="flow_item">
-            <div class="card flow"></div>
-            <el-button
-              class="card add_section"
-              type="primary"
-              circle
-            >+</el-button>
+          <button
+            class="card add_sections"
+            style="margin-bottom:10px;float:left"
+            @click="onFirstClick"
+          >+</button>
+          <li
+            v-for="item in list"
+            :key="item"
+            class="flow_item"
+          >
+            <div
+              class="card flow"
+              :style="{backgroundImage:'url('+item.pic+')'}"
+              @click="showImageOutside(item)"
+            ></div>
+            <button
+              class="card add_sections"
+              @click="onclick(item)"
+            >+</button>
           </li>
-          <li class="flow_item">
-            <div class="card flow"></div>
-            <el-button
-              class="card add_section"
-              type="primary"
-              circle
-            >+</el-button>
-          </li>
-          <!--<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>-->
-          <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
         </div>
-
       </div>
-
     </el-card>
   </div>
 </template>
@@ -103,16 +101,18 @@ export default {
   // components: { pdf },
   data() {
     return {
+      presentImageHeightWidthDivision: 1.1,
       title: 'CoursePage',
       img: require('@/icons/img/head1.jpg'),
       course_id: '',
-      list: [{ name: '1' }, { name: '2' }],
+      list: [{ name: '1', isShow: true, pic: require('@/sample/pic1.jpg') }, { name: '2' }, { name: '3' }, { name: '4' }],
       courseList: [require('@/sample/pic1.jpg'), require('@/sample/pic2.jpg'), require('@/sample/pic3.jpg'), require('@/sample/pic4.jpg'), require('@/sample/pic5.jpg'), require('@/sample/pic6.jpg'), require('@/sample/pic7.jpg'), require('@/sample/pic8.jpg'), require('@/sample/pic9.jpg'), require('@/sample/pic10.jpg'), require('@/sample/pic11.jpg')]
     }
   },
   created() {
     this.course_id = this.$route.params
-  }, mounted() {
+  },
+  mounted() {
     /* 元素对象部分*/
     // 获取所有的流程预览项目
     const lis = document.querySelectorAll('li.flow_item')
@@ -181,9 +181,8 @@ export default {
       //  增加新的节（包括节点和按钮），为节点设置空白背景
       var li = document.createElement('li')
       li.setAttribute('class', 'flow_item')
-      li.innerHTML = '<div class="card flow"></div><button class="card add_section">+</button>'
+      li.innerHTML = '<div class="card flow" style="height:60px;width:60px;margin:10px;float:left;"></div><button class="card add_section" style="height:40px;width:60px;margin:10px;float:left;">+</button>'
       li.children[0].style['background-image'] = 'url("https://dss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2534506313,1688529724&fm=26&gp=0.jpg")'
-      li.children[0].style.height = '30px'
       li.children[1].addEventListener('click', addSection)
       insertAfter(li, this)
     }
@@ -206,7 +205,7 @@ export default {
     var presentImageHeightWidthDivision = 1.1
     // 当前活动的layer1的id
     var currentlayer1 = ' '
-    function showImageOutside() {
+    function showImageOutside(item) {
       var video = document.querySelector('#video-card')
       var container = document.querySelector('#container')
       const layers = document.querySelectorAll('div.layer')
@@ -516,8 +515,120 @@ export default {
     }
   },
   methods: {
+    onFirstClick() {
+      console.log('点击第一个')
+      var tmp = { name: 888, img: require('@/icons/img/head1.jpg') }// 在列表最前面添加一个元素
+      this.list.unshift(tmp)
+    },
     onclick(item) {
-      this.list.push({})
+      console.log(item)
+      var index = this.list.indexOf(item)
+      var oldList = this.list.slice(0, index + 1)// 取当前添加位置及以前的list片
+      var newList = this.list.slice(index + 1, this.list.length)// 取当前添加位置以后的list片
+      console.log(oldList)
+      console.log('索引：' + index)
+      console.log(newList)
+      const newItem = this.list[index]
+      newItem.name = '324'// 一个测试
+      this.list = oldList.concat(newItem, newList) // 已合并的方式插入新的item
+      console.log(this.list)
+    },
+    showImageOutside(item) {
+      console.log(item)
+      const add_action = document.querySelector('#add_action')
+      var currentlayer1 = ''
+      // var video = document.querySelector('#video-card')
+      var container = document.querySelector('#container')
+      const layers = document.querySelectorAll('div.layer')
+      let exist_flat = false
+      let n = 1
+      console.log(item.path)
+      var bgImage = item.path
+      // 当前没有layer1,创建
+      if (!layers) {
+        var layer1 = document.createElement('div')
+        layer1.setAttribute('class', 'layer')
+        currentlayer1 = 'layer' + String(n++ + layers.length)
+        layer1.setAttribute('id', currentlayer1)
+        layer1.style.display = 'none'
+        container.appendChild(layer1)
+        layer1.style['background-image'] = bgImage
+        var url = bgImage.substring(5, bgImage.length - 2)
+        var image = new Image()
+        image.src = url
+        image.onload = function nextStep() {
+          this.presentImageHeightWidthDivision = image.height / image.width
+          // alert(image.width)
+          // const layer1 = document.querySelector('#video-card')
+          var width = container.clientWidth
+          var height = parseInt(width * this.presentImageHeightWidthDivision)
+          // video.children[1].style['display'] = 'none'
+
+          /* var floatMenu = document.createElement('div')
+          var close_float = document.createElement('div')
+          floatMenu.setAttribute('class','float')
+          close_float.setAttribute('class','close_float')
+          floatMenu.appendChild(close_float)
+          layer1.appendChild(floatMenu)*/
+
+          console.log(bgImage)
+
+          // layer1.style['background-image'] = bgImage
+          layer1.style['backgroundImage'] = 'https://dss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2534506313,1688529724&fm=26&gp=0.jpg'
+          layer1.style['background-origin'] = 'center'
+          // layer1.style['-moz-background-size'] = '100%'
+          layer1.style['background-size'] = '100%'
+          layer1.style['height'] = height + 'px'
+          layer1.style['width'] = width + 'px'
+          add_action.style['display'] = 'block'
+          layer1.style['position'] = 'relative'
+          layer1.style.display = 'block'
+        }
+      }
+
+      // 如果已经有layer1
+      for (let i = 0; i < layers.length; i++) {
+        layers[i].style.display = 'none'
+        if (layers[i].style['background-image'] === bgImage) {
+          exist_flat = true
+          layers[i].style.display = 'block'
+          currentlayer1 = layers[i].getAttribute('id')
+        }
+      }
+      // 不存在,创建layer1
+      if (!exist_flat) {
+        var layer2 = document.createElement('div')
+        layer2.setAttribute('class', 'layer')
+        currentlayer1 = 'layer' + String(n++ + layers.length)
+        layer2.setAttribute('id', currentlayer1)
+        layer2.style.display = 'none'
+        container.appendChild(layer2)
+        layer2.style['background-image'] = bgImage
+        // var url = bgImage.substring(5, bgImage.length - 2)
+        var image2 = new Image()
+        image2.src = item.pic
+        image2.onload = function nextStep() {
+          this.presentImageHeightWidthDivision = image2.height / image2.width
+          // alert(image.width)
+          // const layer1 = document.querySelector('#video-card')
+          var width = container.clientWidth
+          var height = parseInt(width * this.presentImageHeightWidthDivision)
+          // video.children[1].style['display'] = 'none'
+          console.log('1' + bgImage)
+          console.log(layer2.id)
+          // layer2.style['background-image'] = bgImage
+          layer2.style['backgroundImage'] = this.img
+
+          layer2.style['background-origin'] = 'center'
+          // layer1.style['-moz-background-size'] = '100%'
+          layer2.style['background-size'] = '100%'
+          layer2.style['height'] = height + 'px'
+          layer2.style['width'] = width + 'px'
+          add_action.style['display'] = 'block'
+          layer2.style['position'] = 'relative'
+          layer2.style.display = 'block'
+        }
+      }
     }
   }
 }
@@ -542,25 +653,24 @@ export default {
         width: 100%;
       }
       .card-primary {
-        direction: row;
-        list-style-type: none;
-        .li {
-          display: inline;
+        list-style: none;
+        .show {
+          float: left;
+          height: 700px;
+          width: 1000px;
         }
-        img {
+        .button {
+          float: left;
+          margin-top: 20px;
+        }
+        .flow_item {
+          float: left;
+        }
+        .flow {
+          float: left;
+          margin: 10px;
           height: 60px;
-        }
-        .el-button {
-          margin-bottom: 10px;
-        }
-        .el-row {
-          margin-bottom: 20px;
-          &:last-child {
-            margin-bottom: 0;
-          }
-        }
-        .el-col {
-          border-radius: 4px;
+          width: 60px;
         }
       }
     }
