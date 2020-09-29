@@ -9,7 +9,7 @@
       >
         <el-carousel-item
           v-for="item in courseList"
-          :key="item.pic"
+          :key="item"
         >
           <el-image
             class="image"
@@ -59,8 +59,8 @@
             :key="item"
           >
             <div
-              class="show"
               v-show="item.isShow"
+              class="show"
               :style="{backgroundImage:'url('+item.pic+')'}"
             >
             </div>
@@ -98,7 +98,6 @@ import 'video.js/dist/video-js.css'
 
 export default {
   name: 'CoursePage',
-  // components: { pdf },
   data() {
     return {
       presentImageHeightWidthDivision: 1.1,
@@ -648,6 +647,12 @@ export default {
     .class-centre-card {
       margin: 30px;
       min-height: 580px;
+      #div1 {
+        width: 350px;
+        height: 70px;
+        padding: 10px;
+        border: 1px solid #aaaaaa;
+      }
       .image {
         height: 100%;
         width: 100%;
