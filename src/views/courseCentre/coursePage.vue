@@ -27,14 +27,13 @@
           style="display: flex; flex-direction: row"
         >
           <h5 class="m-0">上次学习位置</h5>
-          <el-button
+          <button
             id="add_action"
-            type="primary"
             class="card add_action"
             style="margin-left：5px"
           >
             新建动作
-          </el-button>
+          </button>
         </div>
         <div
           id="video-card"
@@ -54,7 +53,7 @@
         </div>
         <div class="card-body">
           <!--<h6 class="card-title">Special title treatment</h6>-->
-          <li
+          <!-- <li
             v-for="item in list"
             :key="item"
           >
@@ -64,7 +63,7 @@
               :style="{backgroundImage:'url('+item.pic+')'}"
             >
             </div>
-          </li>
+          </li> -->
           <button
             class="card add_sections"
             style="margin-bottom:10px;float:left"
@@ -85,6 +84,16 @@
               @click="onclick(item)"
             >+</button>
           </li>
+          <!-- <button class="card add_section">+</button>
+          <li class="flow_item">
+            <div class="card flow"></div><button class="card add_section">+</button>
+          </li>
+          <li class="flow_item">
+            <div class="card flow"></div><button class="card add_section">+</button>
+          </li>
+          <li class="flow_item">
+            <div class="card flow"></div><button class="card add_section">+</button>
+          </li> -->
         </div>
       </div>
     </el-card>
@@ -93,18 +102,19 @@
 
 <script>
 import 'video.js/dist/video-js.css'
-// import './starter_page'
-// import pdf from 'vue-pdf'
+// import DragButton from './components/DragButton'
 
 export default {
   name: 'CoursePage',
+  // components: { DragButton },
   data() {
     return {
       presentImageHeightWidthDivision: 1.1,
       title: 'CoursePage',
+      currentlayer1: '',
       img: require('@/icons/img/head1.jpg'),
       course_id: '',
-      list: [{ name: '1', isShow: true, pic: require('@/sample/pic1.jpg') }, { name: '2' }, { name: '3' }, { name: '4' }],
+      list: [{ name: '1', isShow: true, pic: require('@/sample/pic1.jpg') }, { name: '2', pic: require('@/sample/pic2.jpg') }, { name: '3', pic: require('@/sample/pic3.jpg') }, { name: '4', pic: require('@/sample/pic4.jpg') }],
       courseList: [require('@/sample/pic1.jpg'), require('@/sample/pic2.jpg'), require('@/sample/pic3.jpg'), require('@/sample/pic4.jpg'), require('@/sample/pic5.jpg'), require('@/sample/pic6.jpg'), require('@/sample/pic7.jpg'), require('@/sample/pic8.jpg'), require('@/sample/pic9.jpg'), require('@/sample/pic10.jpg'), require('@/sample/pic11.jpg')]
     }
   },
@@ -112,6 +122,7 @@ export default {
     this.course_id = this.$route.params
   },
   mounted() {
+    const that = this
     /* 元素对象部分*/
     // 获取所有的流程预览项目
     const lis = document.querySelectorAll('li.flow_item')
@@ -119,8 +130,6 @@ export default {
     const add_action = document.querySelector('#add_action')
     // 放置背景图片,编辑按钮位置的容器
     var container = document.querySelector('#container')
-    console.log(container)
-
 
     // 左边的边栏
     var aside = document.querySelector('.main-sidebar')
@@ -141,6 +150,7 @@ export default {
     container.onclick = function (ev) {
       var ev1 = ev || window.event
       var target = ev1.target || ev1.srcElement
+      console.log(ev1)
       switch (target.className) {
         case 'card add_action':
           var ply = addPly()
@@ -203,7 +213,7 @@ export default {
     // 下面变量用于储存当前页面图片的宽高比
     var presentImageHeightWidthDivision = 1.1
     // 当前活动的layer1的id
-    var currentlayer1 = ' '
+    // var currentlayer1 = ' ' 全局变量
     function showImageOutside(item) {
       var video = document.querySelector('#video-card')
       var container = document.querySelector('#container')
@@ -215,8 +225,8 @@ export default {
       if (!layers) {
         var layer1 = document.createElement('div')
         layer1.setAttribute('class', 'layer')
-        currentlayer1 = 'layer' + String(n++ + layers.length)
-        layer1.setAttribute('id', currentlayer1)
+        that.currentlayer1 = 'layer' + String(n++ + layers.length)
+        layer1.setAttribute('id', that.currentlayer1)
         layer1.style.display = 'none'
         container.appendChild(layer1)
         layer1.style['background-image'] = bgImage
@@ -256,15 +266,15 @@ export default {
         if (layers[i].style['background-image'] === bgImage) {
           exist_flat = true
           layers[i].style.display = 'block'
-          currentlayer1 = layers[i].getAttribute('id')
+          that.currentlayer1 = layers[i].getAttribute('id')
         }
       }
       // 不存在,创建layer1
       if (!exist_flat) {
         // var layer1 = document.createElement('div')
         layer1.setAttribute('class', 'layer')
-        currentlayer1 = 'layer' + String(n++ + layers.length)
-        layer1.setAttribute('id', currentlayer1)
+        that.currentlayer1 = 'layer' + String(n++ + layers.length)
+        layer1.setAttribute('id', that.currentlayer1)
         layer1.style.display = 'none'
         container.appendChild(layer1)
         layer1.style['background-image'] = bgImage
@@ -294,7 +304,7 @@ export default {
 
     // 窗口变化时,重塑大小
     window.onresize = function resizeVideoCard() {
-      const layer1 = document.querySelector('#' + currentlayer1)
+      const layer1 = document.querySelector('#' + that.currentlayer1)
       const contain = document.querySelector('#container')
       var width = contain.clientWidth
       // alert('重塑后的宽度' + width)
@@ -308,8 +318,8 @@ export default {
 
     var currentPlyButton
     function addPly() {
-      console.log('currentlayer1:' + currentlayer1)
-      const layer1 = document.querySelector('#' + currentlayer1)
+      console.log('currentlayer1:' + that.currentlayer1)
+      const layer1 = document.querySelector('#' + that.currentlayer1)
       var ply = document.createElement('div')
       ply.setAttribute('class', 'ply')
       if (layer1) {
@@ -412,7 +422,6 @@ export default {
             // })
           }
 
-
           mediaRecorder.ondataavailable = (e) => {
             chunks.push(e.data)
           }
@@ -514,11 +523,13 @@ export default {
     }
   },
   methods: {
+    // 点击第一个场景前的添加按钮
     onFirstClick() {
       console.log('点击第一个')
       var tmp = { name: 888, img: require('@/icons/img/head1.jpg') }// 在列表最前面添加一个元素
       this.list.unshift(tmp)
     },
+    // 添加新场景
     onclick(item) {
       console.log(item)
       var index = this.list.indexOf(item)
@@ -532,23 +543,23 @@ export default {
       this.list = oldList.concat(newItem, newList) // 已合并的方式插入新的item
       console.log(this.list)
     },
+    // 展示添加的场景
     showImageOutside(item) {
       console.log(item)
       const add_action = document.querySelector('#add_action')
-      var currentlayer1 = ''
       // var video = document.querySelector('#video-card')
       var container = document.querySelector('#container')
       const layers = document.querySelectorAll('div.layer')
       let exist_flat = false
       let n = 1
-      console.log(item.path)
-      var bgImage = item.path
+      console.log(item.pic)
+      var bgImage = item.pic
       // 当前没有layer1,创建
       if (!layers) {
         var layer1 = document.createElement('div')
         layer1.setAttribute('class', 'layer')
-        currentlayer1 = 'layer' + String(n++ + layers.length)
-        layer1.setAttribute('id', currentlayer1)
+        this.currentlayer1 = 'layer' + String(n++ + layers.length)
+        layer1.setAttribute('id', this.currentlayer1)
         layer1.style.display = 'none'
         container.appendChild(layer1)
         layer1.style['background-image'] = bgImage
@@ -591,15 +602,16 @@ export default {
         if (layers[i].style['background-image'] === bgImage) {
           exist_flat = true
           layers[i].style.display = 'block'
-          currentlayer1 = layers[i].getAttribute('id')
+          this.currentlayer1 = layers[i].getAttribute('id')
         }
       }
       // 不存在,创建layer1
       if (!exist_flat) {
         var layer2 = document.createElement('div')
         layer2.setAttribute('class', 'layer')
-        currentlayer1 = 'layer' + String(n++ + layers.length)
-        layer2.setAttribute('id', currentlayer1)
+        this.currentlayer1 = 'layer' + String(n++ + layers.length)
+        console.log('@@@' + this.currentlayer1)
+        layer2.setAttribute('id', this.currentlayer1)
         layer2.style.display = 'none'
         container.appendChild(layer2)
         layer2.style['background-image'] = bgImage
@@ -613,10 +625,10 @@ export default {
           var width = container.clientWidth
           var height = parseInt(width * this.presentImageHeightWidthDivision)
           // video.children[1].style['display'] = 'none'
-          console.log('1' + bgImage)
+          console.log('1----' + bgImage)
           console.log(layer2.id)
           // layer2.style['background-image'] = bgImage
-          layer2.style['backgroundImage'] = this.img
+          layer2.style['backgroundImage'] = 'url(https://dss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1830914723,3154965800&fm=26&gp=0.jpg)'
 
           layer2.style['background-origin'] = 'center'
           // layer1.style['-moz-background-size'] = '100%'
