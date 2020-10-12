@@ -30,6 +30,7 @@
           <el-button
             type="primary"
             icon="el-icon-edit"
+            @click="addButton(currentFrame)"
           >
             新建动作
           </el-button>
@@ -95,6 +96,7 @@
 import 'video.js/dist/video-js.css'
 import Frame from './components/Frame'
 
+
 export default {
   name: 'CoursePage',
   components: { Frame },
@@ -111,12 +113,13 @@ export default {
   },
   created() {
     this.course_id = this.$route.params
+    this.currentFrame = this.list[0]
   },
   methods: {
     // 点击第一个场景前的添加按钮
     onFirstClick() {
       console.log('点击第一个')
-      var tmp = { name: 888, img: require('@/icons/img/head1.jpg') }// 在列表最前面添加一个元素
+      var tmp = { name: 888, isShow: false, picpath: "https://imglf4.lf127.net/img/K2JMZkxjQi9SLzR1c0JPd29NT1E4Y0VkbndpM2QxVnFTWGxWcmpFR0tMVU9IdFlnUDRqYnRBPT0.jpg?imageView&thumbnail=500x0&quality=96&stripmeta=0&type=jpg", buttonLoc: [] }// 在列表最前面添加一个元素
       this.list.unshift(tmp)
     },
     // 添加新场景
@@ -128,17 +131,23 @@ export default {
       console.log(oldList)
       console.log('索引：' + index)
       console.log(newList)
-      const newItem = this.list[index]
-      newItem.name = '324'// 一个测试
-      this.list = oldList.concat(newItem, newList) // 已合并的方式插入新的item
+      var newItem = { name: '384', isShow: false, picpath: "https://imglf4.lf127.net/img/K2JMZkxjQi9SLzR1c0JPd29NT1E4Y0VkbndpM2QxVnFTWGxWcmpFR0tMVU9IdFlnUDRqYnRBPT0.jpg?imageView&thumbnail=500x0&quality=96&stripmeta=0&type=jpg", buttonLoc: [] }
+      this.list = oldList.concat(newItem, newList) // 以合并的方式插入新的item
       console.log(this.list)
     },
+    // 切换场景
     onSwitch(item) {
+      console.log(this.currentFrame)
       if (this.currentFrame) {
         this.currentFrame.isShow = false
       }
       item.isShow = true
       this.currentFrame = item
+    },
+    // 添加按钮
+    addButton(item) {
+      console.log(this.currentFrame)
+      item.buttonLoc.push({ x: '', y: '' })
     }
   }
 }

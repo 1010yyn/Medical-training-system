@@ -10,12 +10,47 @@
         class="btn-bg-img"
         @dblclick="openBox"
       ></div>
+      <el-button
+        v-show="isRecorded"
+        type="primary"
+        icon="el-icon-caret-right"
+        @click="openBox"
+        circle
+      ></el-button>
+      <div id="exampage">
+        <div class="result">{{result}}</div>
+        <div class="voice-input-button-wrapper">
+          <voice-input-button
+            appId="5f5c2cdf"
+            apiKey="6c355f2fdfbe2d89dd7eb4374b6cd853"
+            apiSecret="98941cfd0f3f0f6170f25b19fae26f0d"
+            v-model="result"
+            @record="showResult"
+            @record-start="recordStart"
+            @record-stop="recordStop"
+            @record-blank="recordNoResult"
+            @record-failed="recordFailed"
+            @record-ready="recordReady"
+            @record-complete="recordComplete"
+            interactiveMode="touch"
+            color="#fff"
+            tipPosition="top"
+          >
+            <template slot="no-speak">
+              没听清您说的什么
+            </template>
+          </voice-input-button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
+
 <script>
+import voiceInputButton from 'voice-input-button2'
 export default {
+  components: { voiceInputButton },
   directives: {
     drag(el) {
       const oDiv = el // 当前元素
@@ -75,18 +110,42 @@ export default {
   },
   data() {
     return {
-      //   text: '双击显示案件详情',
+      result: '',
       left: 300,
       top: 165,
-      isOpen: false,
-      isMove: false
+      isRecorded: false,
+      recorder: new Recorder(),
+      player: new window.Audio(),
+      rcdStat: 0, // 与aslist里面的rcdStat匹配确认停止的是否是同一个录音文件
+      rcd: []
     }
   },
   methods: {
     openBox() {
       console.log('双击')
-      
+      this.isRecorded = true
     },
+    recordReady() {
+      console.info('按钮就绪!')
+    },
+    recordStart() {
+      console.info('录音开始')
+    },
+    showResult(text) {
+      console.info('收到识别结果：', text)
+    },
+    recordStop() {
+      console.info('录音结束')
+    },
+    recordNoResult() {
+      console.info('没有录到什么，请重试')
+    },
+    recordComplete(text) {
+      console.info('识别完成! 最终结果：', text)
+    },
+    recordFailed(error) {
+      console.info('识别失败，错误栈：', error)
+    }
     // mousedowm(e) { // 鼠标按下时的鼠标所在的X，Y坐标
     //   this.mouseDownX = e.pageX
     //   this.mouseDownY = e.pageY
@@ -111,7 +170,7 @@ export default {
   width: 80px;
   border-radius: 50%;
   position: fixed;
-  top: 170px; 
+  top: 170px;
   left: 340px;
   padding-left: 15px;
   padding-top: 8px;
@@ -120,9 +179,10 @@ export default {
   z-index: 888;
 }
 .btn-bg-img {
-  width: 50px;
-  height: 50px;
-  background-image: url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1602521013896&di=d09bd8f47bf96a02042920ab22bdf8b2&imgtype=0&src=http%3A%2F%2Fku.90sjimg.com%2Felement_origin_min_pic%2F17%2F08%2F27%2Fcbd94e5249b61a7676b962680fc6ab6f.jpg");
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-image: url("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=886037056,2311123780&fm=26&gp=0.jpg");
   background-size: cover;
 }
 .button-box:hover {
@@ -134,5 +194,32 @@ export default {
   width: 80px;
   color: #3193ef;
   text-align: center;
+}
+
+#exampage {
+  top: 100px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 400px;
+}
+
+.voice-input-button-wrapper {
+  width: 42px;
+  height: 42px;
+  background-color: mediumpurple;
+  border-radius: 50%;
+}
+
+.result {
+  width: 100%;
+  padding: 25px;
+  border: #e2e2e2 1px solid;
+  border-radius: 5px;
+  line-height: 2;
+  font-size: 16px;
+  color: #727272;
+  min-height: 24px;
+  margin-bottom: 25px;
 }
 </style>
