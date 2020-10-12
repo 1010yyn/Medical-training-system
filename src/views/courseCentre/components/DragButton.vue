@@ -14,7 +14,7 @@
         v-show="isRecorded"
         type="primary"
         icon="el-icon-caret-right"
-        @click="openBox"
+        @click="handleListen"
         circle
       ></el-button>
       <div id="exampage">
@@ -45,10 +45,9 @@
     </div>
   </div>
 </template>
-
-
 <script>
 import voiceInputButton from 'voice-input-button2'
+import Recorder from 'js-audio-recorder'
 export default {
   components: { voiceInputButton },
   directives: {
@@ -116,26 +115,29 @@ export default {
       isRecorded: false,
       recorder: new Recorder(),
       player: new window.Audio(),
-      rcdStat: 0, // 与aslist里面的rcdStat匹配确认停止的是否是同一个录音文件
-      rcd: []
+      rcdStat: 0, //录音状态
+      rcd: [],
     }
   },
   methods: {
     openBox() {
       console.log('双击')
       this.isRecorded = true
+      this.handleRecord()
     },
     recordReady() {
       console.info('按钮就绪!')
     },
     recordStart() {
       console.info('录音开始')
+      // this.handleRecord()
     },
     showResult(text) {
       console.info('收到识别结果：', text)
     },
     recordStop() {
       console.info('录音结束')
+      // this.isRecorded = true
     },
     recordNoResult() {
       console.info('没有录到什么，请重试')
@@ -145,7 +147,36 @@ export default {
     },
     recordFailed(error) {
       console.info('识别失败，错误栈：', error)
+    },
+    handleRecord(index) {
+      Recorder.getPermission().then(() => {
+        console.log('给权限了')
+        // 未录音/停止正在录制的音频【正确状态】
+        // 未录音状态
+        if (this.rcdStat === 0) {
+          alert('关闭对话框后开始录制回答。回答结束后，再次点击蓝色按钮结束录制！')
+          console.log('开始录制')
+          // 修改录音状态标志
+          this.rcdStat = 1
+          this.recorder.start()
+        } else if (this.rcdStat === 1) {
+          this.rcd = this.recorder.getWAVBlob()
+          this.rcdStat = 0
+          console.log('录制结束')
+        }
+      }, (error) => {
+        console.log(`${error.name} : ${error.message}`)
+      })
+    },
+    // 播放录音
+    handleListen(index) {
+      console.log('试听音频')
+      this.player.src = window.URL.createObjectURL(this.rcd)
+      this.player.play()
     }
+
+
+
     // mousedowm(e) { // 鼠标按下时的鼠标所在的X，Y坐标
     //   this.mouseDownX = e.pageX
     //   this.mouseDownY = e.pageY
@@ -161,6 +192,9 @@ export default {
     //     console.log('e :', e)
     //   }
     // }
+  },
+  destroyed() {
+    this.recorder.destroy()
   }
 }
 </script>
