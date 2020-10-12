@@ -1,18 +1,16 @@
 图片+button组件
 <template>
-  <div
-    class="container"
-    v-show="isShow"
-  >
+  <div class="container">
     <div
       class="pic"
       :style="{backgroundImage:'url('+picpath+')'}"
+      ref="pics"
     ></div>
     <CC
       v-for="item in buttonLoc"
       :key="item"
-      :X="item.X"
-      :Y="item.Y"
+      :x="item.x"
+      :y="item.y"
     />
   </div>
 </template>
@@ -30,11 +28,11 @@ export default {
     // 记录按钮位置
     buttonLoc: {
       type: Object,
-      default: () => { [] },
+      default: () => { [] }
     }
   },
   created() {
-    console.log(frame.buttonLoc)
+    console.log('组件')
   }
 }
 </script>

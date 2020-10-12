@@ -30,9 +30,25 @@ export default {
         const disY = e.clientY - oDiv.offsetTop
         document.onmousemove = function (e) {
           // 通过事件委托，计算移动的距离
-          const l = e.clientX - disX
-          const t = e.clientY - disY
-          
+          var l = e.clientX - disX
+          var t = e.clientY - disY
+
+          // 限定左边界和上边界
+          if (l < 0) {
+            l = 0
+          }
+          if (t < 0) {
+            t = 0
+          }
+          // 限定右边界的距离(当l=父元素宽-子元素宽时，刚好子元素放在父元素最右边)
+          if (l > 1200 - oDiv.clientWidth) {
+            l = 1200 - oDiv.clientWidth
+          }
+          // 限定下边界的距离(当t=父元素高-子元素高时，刚好子元素放在父元素最下边)
+          if (t > 740 - oDiv.clientHeight) {
+            t = 740 - oDiv.clientHeight
+          }
+
           // 移动当前元素
           oDiv.style.left = l + 'px'
           oDiv.style.top = t + 'px'
@@ -40,6 +56,7 @@ export default {
         document.onmouseup = function (e) {
           document.onmousemove = null
           document.onmouseup = null
+          // 返回当前坐标并保存
         }
         // return false不加的话可能导致黏连，就是拖到一个地方时div粘在鼠标上不下来，相当于onmouseup失效
         return false
@@ -47,12 +64,14 @@ export default {
     }
   },
   props: {
-    button:
+    border:
     {
       type: Object, default: () => {
         return {
-          X: '',
-          Y: ''
+          // button位置
+          x: '',
+          y: ''
+          // 父组件位置和宽高
         }
       }
     }
@@ -68,21 +87,21 @@ export default {
     openBox() {
       console.log('双击')
     },
-    mousedowm(e) { // 鼠标按下时的鼠标所在的X，Y坐标
-      this.mouseDownX = e.pageX
-      this.mouseDownY = e.pageY
-      // 初始位置的X，Y 坐标
-      // this.initX = obj.offsetLeft;
-      // this.initY = obj.offsetTop;
-      console.log('e', e)
-      // 表示鼠标已按下
-      this.flag = true
-    },
-    mousemove(e) {
-      if (this.flag) {
-        console.log('e :', e)
-      }
-    }
+    // mousedowm(e) { // 鼠标按下时的鼠标所在的X，Y坐标
+    //   this.mouseDownX = e.pageX
+    //   this.mouseDownY = e.pageY
+    //   // 初始位置的X，Y 坐标
+    //   // this.initX = obj.offsetLeft;
+    //   // this.initY = obj.offsetTop;
+    //   console.log('e', e)
+    //   // 表示鼠标已按下
+    //   this.flag = true
+    // },
+    // mousemove(e) {
+    //   if (this.flag) {
+    //     console.log('e :', e)
+    //   }
+    // }
   }
 }
 </script>
@@ -93,7 +112,7 @@ export default {
   border-radius: 50%;
   position: fixed;
   bottom: 80px;
-  right: 50px;
+  left: 80px;
   padding-left: 15px;
   padding-top: 8px;
   cursor: pointer;
@@ -109,11 +128,5 @@ export default {
 .button-box:hover {
   color: white;
   opacity: 1;
-}
-
-.font-box {
-  width: 80px;
-  color: #3193ef;
-  text-align: center;
 }
 </style>

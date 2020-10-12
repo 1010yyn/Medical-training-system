@@ -30,9 +30,25 @@ export default {
         const disY = e.clientY - oDiv.offsetTop
         document.onmousemove = function (e) {
           // 通过事件委托，计算移动的距离
-          const l = e.clientX - disX
-          const t = e.clientY - disY
-          
+          var l = e.clientX - disX
+          var t = e.clientY - disY
+
+          // 限定左边界和上边界
+          if (l < 340) {
+            l = 340
+          }
+          if (t < 170) {
+            t = 170
+          }
+          // 限定右边界的距离(当l=父元素宽-子元素宽时，刚好子元素放在父元素最右边)
+          if (l > 1200 - oDiv.clientWidth) {
+            l = 1200 - oDiv.clientWidth
+          }
+          // 限定下边界的距离(当t=父元素高-子元素高时，刚好子元素放在父元素最下边)
+          if (t > 650 - oDiv.clientHeight) {
+            t = 650 - oDiv.clientHeight
+          }
+
           // 移动当前元素
           oDiv.style.left = l + 'px'
           oDiv.style.top = t + 'px'
@@ -60,6 +76,8 @@ export default {
   data() {
     return {
       //   text: '双击显示案件详情',
+      left: 300,
+      top: 165,
       isOpen: false,
       isMove: false
     }
@@ -67,22 +85,23 @@ export default {
   methods: {
     openBox() {
       console.log('双击')
+      
     },
-    mousedowm(e) { // 鼠标按下时的鼠标所在的X，Y坐标
-      this.mouseDownX = e.pageX
-      this.mouseDownY = e.pageY
-      // 初始位置的X，Y 坐标
-      // this.initX = obj.offsetLeft;
-      // this.initY = obj.offsetTop;
-      console.log('e', e)
-      // 表示鼠标已按下
-      this.flag = true
-    },
-    mousemove(e) {
-      if (this.flag) {
-        console.log('e :', e)
-      }
-    }
+    // mousedowm(e) { // 鼠标按下时的鼠标所在的X，Y坐标
+    //   this.mouseDownX = e.pageX
+    //   this.mouseDownY = e.pageY
+    //   // 初始位置的X，Y 坐标
+    //   // this.initX = obj.offsetLeft;
+    //   // this.initY = obj.offsetTop;
+    //   console.log('e', e)
+    //   // 表示鼠标已按下
+    //   this.flag = true
+    // },
+    // mousemove(e) {
+    //   if (this.flag) {
+    //     console.log('e :', e)
+    //   }
+    // }
   }
 }
 </script>
@@ -92,8 +111,8 @@ export default {
   width: 80px;
   border-radius: 50%;
   position: fixed;
-  bottom: 80px;
-  right: 50px;
+  top: 170px; 
+  left: 340px;
   padding-left: 15px;
   padding-top: 8px;
   cursor: pointer;
@@ -101,9 +120,9 @@ export default {
   z-index: 888;
 }
 .btn-bg-img {
-  width: 80px;
-  height: 80px;
-  background-image: url("https://avatar-static.segmentfault.com/133/658/1336582159-5960866d44bce_big64");
+  width: 50px;
+  height: 50px;
+  background-image: url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1602521013896&di=d09bd8f47bf96a02042920ab22bdf8b2&imgtype=0&src=http%3A%2F%2Fku.90sjimg.com%2Felement_origin_min_pic%2F17%2F08%2F27%2Fcbd94e5249b61a7676b962680fc6ab6f.jpg");
   background-size: cover;
 }
 .button-box:hover {

@@ -1,23 +1,22 @@
 <template>
   <div class="container">
-    <CC
-      class="frame"
+    <Frame
       v-for="item in list"
+      v-show="item.isShow"
       :key="item"
       :buttonLoc="item.buttonLoc"
-      v-show="item.isShow"
+      class="frame"
     />
   </div>
 </template>
 
 <script>
-import CC from './eij'
+import Frame from './eij'
 export default {
-  components: { CC },
+  components: { Frame },
   data() {
     return {
-      // TODO--修改图片路径
-      list: [{ name: '1', isShow: true, pic: require('@/sample/pic1.jpg'), buttonLoc: [{ X: 1, Y: 1 }, { X: 2, Y: 2 }] }, { name: '2', isShow: false, pic: require('@/sample/pic2.jpg'), buttonLoc: [{ X: 1, Y: 1 }, { X: 3, Y: 3 }, { X: 2, Y: 2 }] }],
+      list: [{ name: '1', isShow: true, pic: require('@/sample/pic1.jpg'), buttonLoc: [{ x: 1, y: 1 }, { x: 2, y: 2 }] }, { name: '2', isShow: false, pic: require('@/sample/pic2.jpg'), buttonLoc: [{ x: 1, y: 1 }, { x: 3, y: 3 }, { x: 2, y: 2 }] }]
     }
   }
 }
