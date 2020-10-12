@@ -10,14 +10,12 @@
         class="btn-bg-img"
         @dblclick="openBox"
       ></div>
-      <!-- <div class="font-box">{{ text }}</div> -->
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  //   components: {caseInfo},
   directives: {
     drag(el) {
       const oDiv = el // 当前元素
@@ -34,6 +32,7 @@ export default {
           // 通过事件委托，计算移动的距离
           const l = e.clientX - disX
           const t = e.clientY - disY
+          
           // 移动当前元素
           oDiv.style.left = l + 'px'
           oDiv.style.top = t + 'px'
@@ -47,7 +46,17 @@ export default {
       }
     }
   },
-  props: { 'caseID': { type: String, default: 'tmp' } },
+  props: {
+    button:
+    {
+      type: Object, default: () => {
+        return {
+          X: '',
+          Y: ''
+        }
+      }
+    }
+  },
   data() {
     return {
       //   text: '双击显示案件详情',

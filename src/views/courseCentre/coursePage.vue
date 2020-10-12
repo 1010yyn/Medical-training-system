@@ -26,7 +26,7 @@
           class="card-header"
           style="display: flex; flex-direction: row"
         >
-          <h5 class="m-0">上次学习位置</h5>
+          <h5 class="m-0">上次学习位置 </h5>
           <button
             id="add_action"
             class="card add_action"
@@ -48,22 +48,18 @@
         id="edit_flow"
         class="card card-primary card-outline"
       >
+        <Frame
+          class="frame"
+          v-for="item in list"
+          :key="item"
+          :buttonLoc="item.buttonLoc"
+          v-show="item.isShow"
+        />
         <div class="card-header">
           <h5 class="m-0">编辑视频流程</h5>
         </div>
         <div class="card-body">
           <!--<h6 class="card-title">Special title treatment</h6>-->
-          <!-- <li
-            v-for="item in list"
-            :key="item"
-          >
-            <div
-              v-show="item.isShow"
-              class="show"
-              :style="{backgroundImage:'url('+item.pic+')'}"
-            >
-            </div>
-          </li> -->
           <button
             class="card add_sections"
             style="margin-bottom:10px;float:left"
@@ -84,16 +80,6 @@
               @click="onclick(item)"
             >+</button>
           </li>
-          <!-- <button class="card add_section">+</button>
-          <li class="flow_item">
-            <div class="card flow"></div><button class="card add_section">+</button>
-          </li>
-          <li class="flow_item">
-            <div class="card flow"></div><button class="card add_section">+</button>
-          </li>
-          <li class="flow_item">
-            <div class="card flow"></div><button class="card add_section">+</button>
-          </li> -->
         </div>
       </div>
     </el-card>
@@ -102,11 +88,11 @@
 
 <script>
 import 'video.js/dist/video-js.css'
-// import DragButton from './components/DragButton'
+import Frame from './components/Frame'
 
 export default {
   name: 'CoursePage',
-  // components: { DragButton },
+  components: { Frame },
   data() {
     return {
       presentImageHeightWidthDivision: 1.1,
@@ -114,7 +100,8 @@ export default {
       currentlayer1: '',
       img: require('@/icons/img/head1.jpg'),
       course_id: '',
-      list: [{ name: '1', isShow: true, pic: require('@/sample/pic1.jpg') }, { name: '2', pic: require('@/sample/pic2.jpg') }, { name: '3', pic: require('@/sample/pic3.jpg') }, { name: '4', pic: require('@/sample/pic4.jpg') }],
+      // TODO--图片路径修改
+      list: [{ name: '1', isShow: true, pic: require('@/sample/pic1.jpg'), buttonLoc: [{ X: 1, Y: 1 }, { X: 2, Y: 2 }] }, { name: '2', isShow: false, pic: require('@/sample/pic2.jpg'), buttonLoc: [{ X: 1, Y: 1 }, { X: 2, Y: 2 }] }, { name: '3', isShow: false, pic: require('@/sample/pic3.jpg'), buttonLoc: [{ X: 1, Y: 1 }, { X: 2, Y: 2 }] }, { name: '4', isShow: false, pic: require('@/sample/pic4.jpg'), buttonLoc: [{ X: 1, Y: 1 }, { X: 2, Y: 2 }] }],
       courseList: [require('@/sample/pic1.jpg'), require('@/sample/pic2.jpg'), require('@/sample/pic3.jpg'), require('@/sample/pic4.jpg'), require('@/sample/pic5.jpg'), require('@/sample/pic6.jpg'), require('@/sample/pic7.jpg'), require('@/sample/pic8.jpg'), require('@/sample/pic9.jpg'), require('@/sample/pic10.jpg'), require('@/sample/pic11.jpg')]
     }
   },

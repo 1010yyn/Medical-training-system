@@ -8,7 +8,7 @@
       class="pic"
       :style="{backgroundImage:'url('+picpath+')'}"
     ></div>
-    <CC
+    <DragButton
       v-for="item in buttonLoc"
       :key="item"
       :X="item.X"
@@ -18,9 +18,9 @@
 </template>
 
 <script>
-import CC from './cc'
+import DragButton from './DragButton'
 export default {
-  components: { CC },
+  components: { DragButton },
   props: {
     // 图片路径
     picpath: {
