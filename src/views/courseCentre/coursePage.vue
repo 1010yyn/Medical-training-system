@@ -88,6 +88,16 @@
           </li>
         </div>
       </div>
+      <image-cropper
+        v-show="imagecropperShow"
+        :key="imagecropperKey"
+        :width="300"
+        :height="300"
+        url="https://httpbin.org/post"
+        lang-type="en"
+        @close="close"
+        @crop-upload-success="cropSuccess"
+      />
     </el-card>
   </div>
 </template>
@@ -95,17 +105,20 @@
 <script>
 import 'video.js/dist/video-js.css'
 import Frame from './components/Frame'
+import ImageCropper from '@/components/ImageCropper'
 
 
 export default {
   name: 'CoursePage',
-  components: { Frame },
+  components: { Frame, ImageCropper },
   data() {
     return {
       title: 'CoursePage',
       currentFrame: '',
       img: require('@/icons/img/head1.jpg'),
       course_id: '',
+      imagecropperShow: false,
+      imagecropperKey: 0,
       // TODO--图片路径
       list: [{ name: '1', isShow: true, picpath: "https://imglf5.lf127.net/img/K2JMZkxjQi9SLzR1c0JPd29NT1E4UkovWDJMbEh2YU9heTd6aUxRN1lqMWhQUkFISTY3dCt3PT0.jpg?imageView&thumbnail=500x0&quality=96&stripmeta=0&type=jpg", buttonLoc: [{ x: 1, y: 1 }, { x: 2, y: 2 }] }, { name: '2', isShow: false, picpath: "https://imglf4.lf127.net/img/K2JMZkxjQi9SLzR1c0JPd29NT1E4Y3ZHRDFhZG1zUHpteUlqbkZLNGVUSU1GK2N0eHUreDJRPT0.jpg?imageView&thumbnail=500x0&quality=96&stripmeta=0&type=jpg", buttonLoc: [{ x: 1, Y: 1 }, { x: 2, y: 2 }] }, { name: '3', isShow: false, picpath: "https://imglf4.lf127.net/img/K2JMZkxjQi9SLzR1c0JPd29NT1E4Y0VkbndpM2QxVnFTWGxWcmpFR0tMVU9IdFlnUDRqYnRBPT0.jpg?imageView&thumbnail=500x0&quality=96&stripmeta=0&type=jpg", buttonLoc: [{ x: 1, y: 1 }, { x: 2, y: 2 }] }],
       courseList: [require('@/sample/pic1.jpg'), require('@/sample/pic2.jpg'), require('@/sample/pic3.jpg'), require('@/sample/pic4.jpg'), require('@/sample/pic5.jpg'), require('@/sample/pic6.jpg'), require('@/sample/pic7.jpg'), require('@/sample/pic8.jpg'), require('@/sample/pic9.jpg'), require('@/sample/pic10.jpg'), require('@/sample/pic11.jpg')]
@@ -118,12 +131,14 @@ export default {
   methods: {
     // 点击第一个场景前的添加按钮
     onFirstClick() {
+      this.imagecropperShow = true
       console.log('点击第一个')
       var tmp = { name: 888, isShow: false, picpath: "https://imglf4.lf127.net/img/K2JMZkxjQi9SLzR1c0JPd29NT1E4Y0VkbndpM2QxVnFTWGxWcmpFR0tMVU9IdFlnUDRqYnRBPT0.jpg?imageView&thumbnail=500x0&quality=96&stripmeta=0&type=jpg", buttonLoc: [] }// 在列表最前面添加一个元素
       this.list.unshift(tmp)
     },
     // 添加新场景
     onclick(item) {
+      this.imagecropperShow = true
       console.log(item)
       var index = this.list.indexOf(item)
       var oldList = this.list.slice(0, index + 1)// 取当前添加位置及以前的list片
@@ -144,7 +159,19 @@ export default {
       item.isShow = true
       this.currentFrame = item
     },
-    // 添加按钮
+    //添加场景图
+    addPic() {
+
+    },
+    cropSuccess(resData) {
+      this.imagecropperShow = false
+      this.imagecropperKey = this.imagecropperKey + 1
+      this.image = resData.files.avatar
+    },
+    close() {
+      this.imagecropperShow = false
+    },
+    // 添加录音按钮
     addButton(item) {
       console.log(this.currentFrame)
       item.buttonLoc.push({ x: '', y: '' })
