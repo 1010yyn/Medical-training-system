@@ -28,7 +28,7 @@
         </el-table-column>
         <el-table-column
           label="时间"
-          width="100"
+          min-width="100"
           align="center"
           prop="time"
         >
@@ -49,7 +49,7 @@ export default {
   data() {
     return {
       title: '答疑平台',
-      list: [{ title: '12313', author: 'wewqewq', time: '2332r' }, { title: '123dwrewr3', author: 'weerqqewqedfvfhdewq', time: '213432332r' }]
+      list: [{ title: '提问1', author: '小李', time: '2020/10/07' }, { title: '提问2', author: '小王', time: '2020/10/11' }]
     }
   },
   methods: {

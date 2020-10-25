@@ -44,10 +44,10 @@ export default {
   components: { ExamTabPane },
   data() {
     return {
-      now: [{ exam_id: '2020082601', title: '考试1' }, { title: '14322' }],
-      wait: [{ exam_id: '2020082801', title: '考试2' }, { title: '14322' }],
-      fin: [{ exam_id: '2020082802', title: '考试3' }, { title: '14322' }],
-      all: [{ exam_id: '2020082802', title: '考试4' }]
+      now: [{ exam_id: '2020082601', office: '科室1', title: '考试1', start: '2020/10/01', end: '2020/11/17' }],
+      wait: [{ exam_id: '2020082801', office: '科室2', title: '考试2', start: '2020/10/31', end: '2020/11/17' }],
+      fin: [{ exam_id: '2020082802', office: '科室3', title: '考试3', start: '2020/9/01', end: '2020/10/17' }],
+      all: [{ exam_id: '2020082802', title: '考试1', office: '科室1', start: '2020/10/01', end: '2020/11/17' }, { exam_id: '2020082801', title: '考试2', office: '科室2', start: '2020/10/31', end: '2020/11/17' }, { exam_id: '2020082802', title: '考试3', office: '科室3', start: '2020/9/01', end: '2020/10/17' }]
     }
   },
   computed: {

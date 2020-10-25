@@ -2,7 +2,7 @@
   <div class="class-centre-container">
     <h1 class="class-centre-title">{{ title }}</h1>
     <el-card class="class-centre-card">
-      <p>正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文</p>
+      <p>核磁共振成像特点是什么？</p>
     </el-card>
   </div>
 </template>

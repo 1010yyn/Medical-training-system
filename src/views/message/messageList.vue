@@ -9,7 +9,7 @@
         <el-table-column label="发布科室" width="195" align="center" prop="office">
           <template slot-scope="scope">{{ scope.row.office }}</template>
         </el-table-column>
-        <el-table-column label="时间" width="100" align="center" prop="time">
+        <el-table-column label="时间" min-width="100" align="center" prop="time">
           <!-- 作用在于设置显示格式 -->
           <template slot-scope="{row}">
             <el-tag :type="row.time ">{{ row.time }}</el-tag>
@@ -26,7 +26,7 @@ export default {
   data() {
     return {
       title: '通知中心',
-      list: [{ message_id: '1111', title: '12313', office: 'wewqewq', time: '2332r' }, { title: '123dwrewr3', office: 'weerqqewqedfvfhdewq', time: '213432332r' }]
+      list: [{ message_id: '1111', title: '关于我院2020年国庆节、中秋节放假的通知', office: '科室1', time: '2020/10/01' }, { title: '通知2', office: '科室2', time: '2020/10/20' }]
     }
   },
   methods: {
