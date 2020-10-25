@@ -42,10 +42,10 @@ export default {
   data() {
     return {
       user_id: '',
-      now: [{ course_id: '2020082601', title: '课程1', sum: '10', completed: '2' }, { title: '14322' }],
-      wait: [{ course_id: '2020082801', title: '课程2', sum: '10', completed: '6' }, { title: '14322' }],
-      fin: [{ course_id: '2020082602', title: '课程3', sum: '10', completed: '3' }, { title: '14322' }],
-      all: [{ course_id: '2020082602', title: '14322' }]
+      now: [{ course_id: '2020082601', title: '课程1', sum: '10', completed: '2', start: '2020/10/1', end: '2020/11/12' }],
+      wait: [{ course_id: '2020082801', title: '课程2', sum: '10', completed: '6', start: '2020/11/1', end: '2020/11/12' }],
+      fin: [{ course_id: '2020082602', title: '课程3', sum: '10', completed: '3' }],
+      all: [{ course_id: '2020082602', title: '课程1', sum: '10', completed: '2', start: '2020/10/1', end: '2020/11/12' }, { course_id: '2020082801', title: '课程2', sum: '10', completed: '6', start: '2020/11/1', end: '2020/11/12' }, { course_id: '2020082602', title: '课程3', sum: '10', completed: '3' }]
     }
   },
   created() {

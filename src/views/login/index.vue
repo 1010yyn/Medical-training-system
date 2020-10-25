@@ -1,5 +1,6 @@
 <template>
   <div class="login-container">
+    <div class="blur"></div>
     <el-form
       ref="loginForm"
       :model="loginForm"
@@ -45,17 +46,38 @@
           auto-complete="on"
           @keyup.enter.native="handleLogin"
         />
-        <span class="show-pwd" @click="showPwd">
+        <span
+          class="show-pwd"
+          @click="showPwd"
+        >
           <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
       </el-form-item>
 
-      <div class="choose" style="width:100%;margin-bottom:30px">
-        <input id="ordinary" v-model="job" value="ordinary" type="radio">
+      <div
+        class="choose"
+        style="width:100%;margin-bottom:30px"
+      >
+        <input
+          id="ordinary"
+          v-model="job"
+          value="ordinary"
+          type="radio"
+        >
         <label for="ordinary">医护人员</label>
-        <input id="test_manager" v-model="job" value="test_manager" type="radio">
-        <label for="test_manager">题库管理员</label>
-        <input id="system_manager" v-model="job" value="系统管理员" type="radio">
+        <input
+          id="test_manager"
+          v-model="job"
+          value="test_manager"
+          type="radio"
+        >
+        <label for="test_manager">科室管理员</label>
+        <input
+          id="system_manager"
+          v-model="job"
+          value="系统管理员"
+          type="radio"
+        >
         <label for="system_manager">系统管理员</label>
       </div>
 
@@ -207,12 +229,23 @@ $light_gray: #eee;
   width: 100%;
   background-color: $bg;
   overflow: hidden;
+  .blur {
+    // background-image: url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1603619028761&di=fbf77e68f9d4ee3884e9c6ca1d72907b&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F8%2F53ed7a4907e17.jpg");
+    background-image: url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1603620908596&di=77812b2da1ada6318fd2af28388a7ce0&imgtype=0&src=http%3A%2F%2F01.minipic.eastday.com%2F20180827%2F20180827192747_d3c1239df05a21e179f3e8740eac5d7e_8.jpg");
+    filter: blur(20px);
+    float: left;
+    background-position: center;
+    height: 935px;
+    width: 1950px;
+    background-size: cover;
+  }
 
   .login-form {
-    position: relative;
+    position: absolute;
+    left: 700px;
     width: 520px;
     max-width: 100%;
-    padding: 160px 35px 0;
+    padding: 250px 35px 0;
     margin: 0 auto;
     overflow: hidden;
 

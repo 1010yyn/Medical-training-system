@@ -144,6 +144,7 @@ export const constantRoutes = [
   }, {
     path: '/messageManager',
     component: Layout,
+    hidden: true,
     children: [
       {
         path: 'index',
@@ -163,6 +164,7 @@ export const constantRoutes = [
   {
     path: '/courseManager',
     component: Layout,
+    hidden: true,
     children: [
       {
         path: 'index',
@@ -175,6 +177,7 @@ export const constantRoutes = [
   {
     path: '/examManager',
     component: Layout,
+    hidden: true,
     children: [
       {
         path: 'index',
@@ -207,6 +210,7 @@ export const constantRoutes = [
   }, {
     path: '/userManager',
     component: Layout,
+    hidden: true,
     children: [
       {
         path: 'index',
@@ -225,6 +229,7 @@ export const constantRoutes = [
   },
   {
     path: '/test',
+    hidden: true,
     component: Layout,
     children: [
       {

@@ -8,7 +8,10 @@
         <p class="course-title">{{ title }}</p>
         <p class="office">{{ office }}</p>
       </div>
-      <p class="time">{{ start }} - {{ end }}</p>
+      <div>
+        <p class="score">分数： {{ score }}</p>
+        <p class="time">{{ start }} - {{ end }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -21,6 +24,10 @@ export default {
     icon: {
       type: String,
       default: require('@/icons/img/test2.jpg')
+    },
+    score: {
+      type: String,
+      default: '80'
     },
     title: {
       type: String,
@@ -96,6 +103,11 @@ export default {
         float: right;
         width: 70%;
       }
+    }
+    .score {
+      float: left;
+      font-size: 16px;
+      margin-left: 30%;
     }
     .time {
       font-size: 12px;

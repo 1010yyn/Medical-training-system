@@ -12,8 +12,8 @@
             :icon="item.icon"
             :title="item.exam_title"
             :office="item.office"
-            :start="item.start_time"
-            :end="item.end_time"
+            :start="item.start"
+            :end="item.end"
           />
         </el-card>
       </el-timeline-item>

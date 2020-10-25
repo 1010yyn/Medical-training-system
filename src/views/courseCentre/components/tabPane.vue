@@ -9,8 +9,8 @@
       :office="item.office"
       :sum="item.sum"
       :completed="item.completed"
-      :start="item.starttime"
-      :end="item.endtime"
+      :start="item.start"
+      :end="item.end"
       @click.native.prevent="handleCourse(item.course_id)"
     />
   </ul>
@@ -32,7 +32,7 @@ export default {
   methods: {
     handleCourse(course_id) {
       console.log('点击课程')
-      this.$router.push({ name: 'CoursePage', params: { course_id: course_id }})// 传入course_id
+      this.$router.push({ name: 'CoursePage', params: { course_id: course_id } })// 传入course_id
     }
   }
 }
