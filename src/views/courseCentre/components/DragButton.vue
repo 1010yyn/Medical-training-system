@@ -14,17 +14,20 @@
         v-show="isRecorded"
         type="success"
         icon="el-icon-caret-right"
-        @click="handleListen"
         circle
-      ></el-button>
+        @click="handleListen"
+      />
       <div id="exampage">
-        <div class="result">{{result}}</div>
+        <div class="result">{{ result }}</div>
         <div class="voice-input-button-wrapper">
           <voice-input-button
-            appId="5f5c2cdf"
-            apiKey="6c355f2fdfbe2d89dd7eb4374b6cd853"
-            apiSecret="98941cfd0f3f0f6170f25b19fae26f0d"
             v-model="result"
+            app-id="5f5c2cdf"
+            api-key="6c355f2fdfbe2d89dd7eb4374b6cd853"
+            api-secret="98941cfd0f3f0f6170f25b19fae26f0d"
+            interactive-mode="touch"
+            color="#fff"
+            tip-position="top"
             @record="showResult"
             @record-start="recordStart"
             @record-stop="recordStop"
@@ -32,9 +35,6 @@
             @record-failed="recordFailed"
             @record-ready="recordReady"
             @record-complete="recordComplete"
-            interactiveMode="touch"
-            color="#fff"
-            tipPosition="top"
           >
             <template slot="no-speak">
               没听清您说的什么
@@ -42,6 +42,12 @@
           </voice-input-button>
         </div>
       </div>
+      <el-button
+        type="danger"
+        circle
+        icon="el-icon-delete"
+        @click="onDelete"
+      />
     </div>
   </div>
 </template>
@@ -105,7 +111,8 @@ export default {
           Y: ''
         }
       }
-    }
+    },
+    rcd: []
   },
   data() {
     return {
@@ -115,9 +122,13 @@ export default {
       isRecorded: false,
       recorder: new Recorder(),
       player: new window.Audio(),
-      rcdStat: 0, //录音状态
+      rcdStat: 0, // 录音状态
       rcd: [],
+      te: [{ a: 1, b: 2 }, { a: 4, b: 9 }]
     }
+  },
+  destroyed() {
+    this.recorder.destroy()
   },
   methods: {
     openBox() {
@@ -130,14 +141,12 @@ export default {
     },
     recordStart() {
       console.info('录音开始')
-      // this.handleRecord()
     },
     showResult(text) {
       console.info('收到识别结果：', text)
     },
     recordStop() {
       console.info('录音结束')
-      // this.isRecorded = true
     },
     recordNoResult() {
       console.info('没有录到什么，请重试')
@@ -148,7 +157,7 @@ export default {
     recordFailed(error) {
       console.info('识别失败，错误栈：', error)
     },
-    handleRecord(index) {
+    handleRecord() {
       Recorder.getPermission().then(() => {
         console.log('给权限了')
         // 未录音/停止正在录制的音频【正确状态】
@@ -169,14 +178,19 @@ export default {
       })
     },
     // 播放录音
-    handleListen(index) {
+    handleListen() {
       console.log('试听音频')
       this.player.src = window.URL.createObjectURL(this.rcd)
       this.player.play()
+    },
+    onDelete() {
+      this.$emit('Delete', 'delete')
+      console.log(this.$parent)
+      // this.$parent.delete(this)
+      var index = this.list.findIndex(function (item) {
+        return item.id == id;
+      })
     }
-
-
-
     // mousedowm(e) { // 鼠标按下时的鼠标所在的X，Y坐标
     //   this.mouseDownX = e.pageX
     //   this.mouseDownY = e.pageY
@@ -192,9 +206,6 @@ export default {
     //     console.log('e :', e)
     //   }
     // }
-  },
-  destroyed() {
-    this.recorder.destroy()
   }
 }
 </script>

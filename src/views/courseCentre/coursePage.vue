@@ -4,9 +4,10 @@
     <h1 class="class-centre-title">{{ title }}</h1>
     <el-card class="class-centre-card">
       <el-carousel
-        v-show="false"
+        v-show="showPPT"
         class="class-centre-frame"
-        height="580px"
+        height="650px"
+        style="width:100%"
       >
         <el-carousel-item
           v-for="item in courseList"
@@ -19,7 +20,19 @@
           />
         </el-carousel-item>
       </el-carousel>
+      <br>
+      <el-button
+        v-show="showPPT"
+        type="primary"
+        style="float:right;"
+        @click="closePPT"
+      >
+        下一部分
+      </el-button>
+      <br>
+      <br>
       <div
+        v-show="!showPPT"
         id="container"
         class="card"
       >
@@ -28,7 +41,7 @@
           class="card-header"
           style="display: flex; flex-direction: row"
         >
-          <!-- <p class="m-0">上次学习位置 </p> -->
+          <p class="m-0">上次学习位置 </p>
           <el-button
             type="primary"
             icon="el-icon-edit"
@@ -47,6 +60,7 @@
       </div>
 
       <div
+        v-show="!showPPT"
         id="edit_flow"
         class="card card-primary card-outline"
       >
@@ -59,20 +73,17 @@
           class="frame"
         />
         <div class="card-header">
-          <!-- <h5 class="m-0">编辑视频流程</h5> -->
+          <h5 class="m-0">编辑流程</h5>
         </div>
         <div class="card-body">
-          <!--<h6 class="card-title">Special title treatment</h6>-->
-          <!-- <el-button
+          <el-button
             class="card add_sections"
             type="primary"
             style="margin:10px;float:left"
-            icon="el-icon-plus"
+            icon="el-icon-right"
             circle
             @click="onFirstClick"
-          /> -->
-          <br>
-          <br>
+          />
           <li
             v-for="item in list"
             :key="item"
@@ -92,6 +103,11 @@
               @click="onclick(item)"
             />
           </li>
+          <el-button
+            type="success"
+            style="margin:10px;"
+            @click="exit"
+          >完成学习</el-button>
         </div>
       </div>
       <image-cropper
@@ -113,7 +129,6 @@ import 'video.js/dist/video-js.css'
 import Frame from './components/Frame'
 import ImageCropper from '@/components/ImageCropper'
 
-
 export default {
   name: 'CoursePage',
   components: { Frame, ImageCropper },
@@ -122,6 +137,7 @@ export default {
       title: 'CoursePage',
       currentFrame: '',
       course_id: '',
+      showPPT: true,
       imagecropperShow: false,
       imagecropperKey: 0,
       // TODO--图片路径
@@ -180,6 +196,12 @@ export default {
     addButton(item) {
       console.log(this.currentFrame)
       item.buttonLoc.push({ x: '', y: '' })
+    },
+    closePPT() {
+      this.showPPT = false
+    },
+    exit() {
+      this.$router.push({ name: 'CourseList' })
     }
   }
 }
@@ -199,27 +221,33 @@ export default {
     .class-centre-card {
       margin: 30px;
       min-height: 650px;
-      .card-primary {
-        list-style: none;
-        .show {
-          float: left;
-          height: 700px;
-          width: 1000px;
+
+      .class-centre-frame {
+        el-carousel-item {
+          margin: 0 auto;
         }
-        .button {
-          float: left;
-          margin-top: 20px;
-        }
-        .flow_item {
-          float: left;
-        }
-        .flow {
-          float: left;
-          margin: 10px;
-          height: 60px;
-          width: 60px;
-          background-size: cover;
-        }
+      }
+    }
+    .card-primary {
+      list-style: none;
+      .show {
+        float: left;
+        height: 700px;
+        width: 1000px;
+      }
+      .button {
+        float: left;
+        margin-top: 20px;
+      }
+      .flow_item {
+        float: left;
+      }
+      .flow {
+        float: left;
+        margin: 10px;
+        height: 60px;
+        width: 60px;
+        background-size: cover;
       }
     }
   }

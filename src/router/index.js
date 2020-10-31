@@ -229,7 +229,7 @@ export const constantRoutes = [
   },
   {
     path: '/test',
-    hidden: true,
+    // hidden: true,
     component: Layout,
     children: [
       {

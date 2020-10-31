@@ -30,6 +30,12 @@ export default {
       type: Object,
       default: () => { [] }
     }
+  },
+  methods: {
+    delete(item) {
+      console.log('test parent')
+      this.buttonLoc.remove(item)
+    }
   }
 }
 </script>
