@@ -49,7 +49,7 @@ export default {
   data() {
     return {
       title: '答疑平台',
-      list: [{ title: '提问1', author: '小李', time: '2020/10/07' }, { title: '提问2', author: '小王', time: '2020/10/11' }]
+      list: [{ title: '核磁共振的特点', author: '小李', time: '2020/10/07' }, { title: '提问2', author: '小王', time: '2020/10/11' }]
     }
   },
   methods: {

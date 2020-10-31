@@ -12,7 +12,7 @@
       ></div>
       <el-button
         v-show="isRecorded"
-        type="primary"
+        type="success"
         icon="el-icon-caret-right"
         @click="handleListen"
         circle
