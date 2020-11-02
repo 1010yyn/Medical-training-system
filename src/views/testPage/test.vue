@@ -1,29 +1,20 @@
 <template>
   <div class="class-centre-container">
     <h1 class="class-centre-title">{{ title }}</h1>
-    <el-card class="class-centre-card">
-      <el-carousel
-        class="class-centre-frame"
-        height="650px"
-        style="width:100%"
-      >
-        <el-carousel-item
-          v-for="item in courseList"
-          :key="item"
-        >
-          <el-image
-            class="image"
-            :src="item"
-            fit="scale-down"
-          />
-        </el-carousel-item>
-      </el-carousel>
-    </el-card>
+    <cd
+      v-for="item in list"
+      :key="item"
+      :text="list.text"
+      :user_name="user_name"
+    />
   </div>
 </template>
 
 <script>
+import cd from '../answering/platform/components/replyItem'
+
 export default {
+  components: { cd },
   data() {
     return {
       title: '测试页面',
@@ -45,10 +36,8 @@ export default {
       border-bottom: solid 2px #409eff;
       margin: 30px;
     }
-    .class-centre-card {
-      margin-right: 30px;
-      margin-left: 30px;
-      min-height: 600px;
+    .blc {
+      height: 100px;
     }
   }
 }
