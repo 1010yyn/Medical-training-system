@@ -80,6 +80,13 @@ export const constantRoutes = [
         component: () => import('@/views/examCentre/examPage'),
         meta: { title: '考试中心', noCache: true },
         hidden: true
+      },
+      {
+        path: 'examResult',
+        name: 'ExamResult',
+        component: () => import('@/views/examCentre/examResult'),
+        meta: { title: '考试结束', noCache: true },
+        hidden: true
       }
     ]
   },

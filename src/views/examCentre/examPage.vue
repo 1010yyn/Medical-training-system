@@ -38,14 +38,6 @@
           />删除答案
         </div>
         <div class="card-body">
-          <el-button
-            class="card add_sections"
-            type="primary"
-            style="margin:10px;float:left"
-            icon="el-icon-right"
-            circle
-            @click="onFirstClick"
-          />
           <li
             v-for="item in list"
             :key="item"
@@ -129,6 +121,24 @@ export default {
       }
       item.isShow = true
       this.currentFrame = item
+    },
+    exit() {
+      this.$confirm('你确定要交卷吗?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$message({
+          type: 'success',
+          message: '交卷成功!'
+        })
+        this.$router.push({ name: 'ExamResult' })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消交卷'
+        })
+      })
     },
     // // 添加--修改状态，list++，然后录音
     // // 修改--直接重新录音
