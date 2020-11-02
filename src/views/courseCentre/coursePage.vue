@@ -73,7 +73,7 @@
           class="frame"
         />
         <div class="card-header">
-          <h5 class="m-0">编辑流程</h5>
+          <!-- <h5 class="m-0">编辑流程</h5> -->
         </div>
         <div class="card-body">
           <el-button
@@ -126,7 +126,7 @@
 
 <script>
 import 'video.js/dist/video-js.css'
-import Frame from './components/Frame'
+import Frame from '@/components/Frame/Frame'
 import ImageCropper from '@/components/ImageCropper'
 
 export default {
@@ -135,9 +135,9 @@ export default {
   data() {
     return {
       title: 'CoursePage',
-      currentFrame: '',
-      course_id: '',
-      showPPT: true,
+      currentFrame: '', // 当前展示场景Object
+      course_id: '', // 当前课程编号
+      showPPT: true, // 展示PPT组件状态
       imagecropperShow: false,
       imagecropperKey: 0,
       // TODO--图片路径
@@ -230,15 +230,6 @@ export default {
     }
     .card-primary {
       list-style: none;
-      .show {
-        float: left;
-        height: 700px;
-        width: 1000px;
-      }
-      .button {
-        float: left;
-        margin-top: 20px;
-      }
       .flow_item {
         float: left;
       }

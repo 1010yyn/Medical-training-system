@@ -65,9 +65,9 @@ export default {
     // console.log('user_id' + this.user_id)
     // console.log('name' + this.name)
     // get examlist
-    this.handleGetList('Now')
-    this.handleGetList('Wait')
-    this.handleGetList('Fin')
+    // this.handleGetList('Now')
+    // this.handleGetList('Wait')
+    // this.handleGetList('Fin')
   },
   methods: {
     // TODO--获取list

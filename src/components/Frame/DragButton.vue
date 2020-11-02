@@ -13,7 +13,7 @@
       <el-button
         v-show="isRecorded"
         type="success"
-        icon="el-icon-caret-right"
+        icon="el-icon-phone-outline"
         circle
         @click="handleListen"
       />
@@ -111,8 +111,7 @@ export default {
           Y: ''
         }
       }
-    },
-    rcd: []
+    }
   },
   data() {
     return {
@@ -187,9 +186,6 @@ export default {
       this.$emit('Delete', 'delete')
       console.log(this.$parent)
       // this.$parent.delete(this)
-      var index = this.list.findIndex(function (item) {
-        return item.id == id;
-      })
     }
     // mousedowm(e) { // 鼠标按下时的鼠标所在的X，Y坐标
     //   this.mouseDownX = e.pageX
