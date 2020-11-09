@@ -2,22 +2,56 @@
   <div class="class-centre-container">
     <h1 class="class-centre-title">{{ title }}</h1>
     <div class="class-centre-table">
-      <el-button type="primary" icon="el-icon-edit" @click="addMessage">添加新通知</el-button>
-      <el-table style="width: 100%;padding-top: 15px;" :data="list">
-        <el-table-column label="标题" min-width="200" prop="title">
+      <el-button
+        type="primary"
+        icon="el-icon-edit"
+        @click="addMessage"
+      >添加新通知</el-button>
+      <el-table
+        style="width: 100%;padding-top: 15px;"
+        :data="list"
+      >
+        <el-table-column
+          label="标题"
+          min-width="200"
+          prop="title"
+        >
           <template slot-scope="scope">{{ scope.row.title }}</template>
         </el-table-column>
-        <el-table-column label="发布科室" min-width="195" align="center" prop="office">
+        <el-table-column
+          label="发布科室"
+          min-width="195"
+          align="center"
+          prop="office"
+        >
           <template slot-scope="scope">{{ scope.row.office }}</template>
         </el-table-column>
-        <el-table-column label="时间" min-width="100" align="center" prop="time">
+        <el-table-column
+          label="时间"
+          min-width="100"
+          align="center"
+          prop="time"
+        >
           <!-- 作用在于设置显示格式 -->
           <template slot-scope="{ row }">{{ row.time }}</template>
         </el-table-column>
-        <el-table-column label="管理" min-width="180" align="center" prop="manage">
+        <el-table-column
+          label="管理"
+          min-width="180"
+          align="center"
+          prop="manage"
+        >
           <template slot-scope="scope">
-            <el-button plain type="primary" @click="handleModify(scope.$index)">修改</el-button>
-            <el-button plain type="danger" @click="handleDelete(scope.$index)">删除</el-button>
+            <el-button
+              plain
+              type="primary"
+              @click="handleModify(scope.$index)"
+            >修改</el-button>
+            <el-button
+              plain
+              type="danger"
+              @click="handleDelete(scope.$index)"
+            >删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -35,15 +69,9 @@ export default {
       list: [
         {
           message_id: '11111',
-          title: '12313',
-          office: 'wewqewq',
-          time: '2332r'
-        },
-        {
-          message_id: '33214',
-          title: '123dwrewr3',
-          office: 'weerqqewqedfvfhdewq',
-          time: '213432332r'
+          title: '关于我院2020年国庆节、中秋节放假的通知',
+          office: '科室1',
+          time: '2020/10/01'
         }
       ]
     }

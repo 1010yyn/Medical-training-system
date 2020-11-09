@@ -2,14 +2,32 @@
   <div class="class-centre-container">
     <h1 class="class-centre-title">{{ title }}</h1>
     <div class="class-centre-table">
-      <el-table style="width: 100%;padding-top: 15px;" :data="list" @row-click="openMessage">
-        <el-table-column label="标题" min-width="200" prop="title">
+      <el-table
+        style="width: 100%;padding-top: 15px;"
+        :data="list"
+        @row-click="openMessage"
+      >
+        <el-table-column
+          label="标题"
+          min-width="200"
+          prop="title"
+        >
           <template slot-scope="scope">{{ scope.row.title }}</template>
         </el-table-column>
-        <el-table-column label="发布科室" width="195" align="center" prop="office">
+        <el-table-column
+          label="发布科室"
+          width="195"
+          align="center"
+          prop="office"
+        >
           <template slot-scope="scope">{{ scope.row.office }}</template>
         </el-table-column>
-        <el-table-column label="时间" min-width="100" align="center" prop="time">
+        <el-table-column
+          label="时间"
+          min-width="100"
+          align="center"
+          prop="time"
+        >
           <!-- 作用在于设置显示格式 -->
           <template slot-scope="{row}">
             <el-tag :type="row.time ">{{ row.time }}</el-tag>
@@ -26,7 +44,7 @@ export default {
   data() {
     return {
       title: '通知中心',
-      list: [{ message_id: '1111', title: '关于我院2020年国庆节、中秋节放假的通知', office: '科室1', time: '2020/10/01' }, { title: '通知2', office: '科室2', time: '2020/10/20' }]
+      list: [{ message_id: '1111', title: '关于我院2020年国庆节、中秋节放假的通知', office: '科室1', time: '2020/10/01' }]
     }
   },
   methods: {

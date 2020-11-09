@@ -151,7 +151,6 @@ export const constantRoutes = [
   }, {
     path: '/messageManager',
     component: Layout,
-    hidden: true,
     children: [
       {
         path: 'index',
@@ -165,13 +164,19 @@ export const constantRoutes = [
         component: () => import('@/views/messageManager/modifyPage'),
         meta: { title: '通知管理', noCache: true },
         hidden: true
+      },
+      {
+        path: 'addPage',
+        name: 'MesasgeAddPage',
+        component: () => import('@/views/messageManager/addMessage'),
+        meta: { title: '通知管理', noCache: true },
+        hidden: true
       }
     ]
   },
   {
     path: '/courseManager',
     component: Layout,
-    hidden: true,
     children: [
       {
         path: 'index',
@@ -184,7 +189,6 @@ export const constantRoutes = [
   {
     path: '/examManager',
     component: Layout,
-    hidden: true,
     children: [
       {
         path: 'index',
@@ -217,7 +221,6 @@ export const constantRoutes = [
   }, {
     path: '/userManager',
     component: Layout,
-    hidden: true,
     children: [
       {
         path: 'index',
@@ -236,7 +239,6 @@ export const constantRoutes = [
   },
   {
     path: '/test',
-    // hidden: true,
     component: Layout,
     children: [
       {
