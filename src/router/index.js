@@ -229,9 +229,23 @@ export const constantRoutes = [
         meta: { title: '用户管理', icon: 'el-icon-s-custom' }
       },
       {
-        path: 'modifyPage',
-        name: 'UserModifyPage',
-        component: () => import('@/views/userManager/modifyPage'),
+        path: 'addUserPage',
+        name: 'AddUserPage',
+        component: () => import('@/views/userManager/AddUserPage'),
+        meta: { title: '用户管理', noCache: true },
+        hidden: true
+      },
+      {
+        path: 'infoViewPage',
+        name: 'UserInfoView',
+        component: () => import('@/views/userManager/infoView'),
+        meta: { title: '用户管理', noCache: true },
+        hidden: true
+      },
+      {
+        path: 'examModifyPage',
+        name: 'ExamUpdatePage',
+        component: () => import('@/views/userManager/ExamUpdatePage'),
         meta: { title: '用户管理', noCache: true },
         hidden: true
       }

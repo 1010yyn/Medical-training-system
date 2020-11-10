@@ -2,39 +2,24 @@
   <div class="class-centre-container">
     <h1 class="class-centre-title">{{ title }}</h1>
     <el-card class="class-centre-card">
-      <el-form ref="user" class="class-centre-form" :model="user" label-width="120px">
-        <el-form-item label="头 像">
-          <el-image :src="head1" style="width:200px; height:200px;" />
-        </el-form-item>
-        <el-form-item label="UID">
-          <el-input v-model="user.user_id" />
-        </el-form-item>
-        <el-form-item label="用户名">
-          <el-input v-model="user.login_id" />
-        </el-form-item>
-        <el-form-item label="密 码">
-          <el-input v-model="user.password" />
-        </el-form-item>
-        <el-form-item label="姓 名">
-          <el-input v-model="user.user_name" />
-        </el-form-item>
-        <el-form-item label="手机号">
-          <el-input v-model="user.user_phone" />
-        </el-form-item>
-        <el-form-item label="性 别">
-          <el-input v-model="user.sex" />
-        </el-form-item>
-        <el-form-item label="职 称">
-          <el-input v-model="user.post" />
-        </el-form-item>
-        <el-form-item label="科 室">
-          <el-input v-model="user.office" />
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="onSubmit">提交</el-button>
-          <el-button @click="onCancel">取 消</el-button>
-        </el-form-item>
-      </el-form>
+      <el-table>
+        <el-table-column
+          label="题号"
+          min-width="200"
+          prop="index"
+        ><template slot-scope="scope">{{ scope.index }}</template></el-table-column>
+        <el-table-column
+          label="回答"
+          min-width="200"
+          prop="score"
+        ><template slot-scope="scope">{{ scope.$index }}</template></el-table-column>
+        <el-table-column
+          label="分数"
+          min-width="200"
+          prop="title"
+        >5</el-table-column>
+      </el-table>
+
     </el-card>
   </div>
 </template>
