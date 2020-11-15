@@ -21,7 +21,7 @@
           <el-input v-model="exam.end" />
         </el-form-item>
         <el-form-item>
-          <el-tag>点击确定后进入试题编辑</el-tag>
+          <el-tag>点击确定后进入课程编辑</el-tag>
         </el-form-item>
         <el-form-item>
           <el-button
@@ -39,7 +39,7 @@
 export default {
   data() {
     return {
-      title: '添加考试信息',
+      title: '添加课程信息',
       id: '',
       exam: {},
       exam_id: '',
@@ -49,13 +49,13 @@ export default {
   },
   methods: {
     onSubmit() {
-      // 生成exam_id
+      // 生成course_id
       this.CurrentTime = this.timer.getFullYear() + '' + (this.timer.getMonth() + 1) + this.timer.getDate() + '01'
       console.log(this.CurrentTime)
       this.exam.exam_id = this.CurrentTime
       console.log(this.exam.exam_id)
       this.exam_id = this.CurrentTime
-      this.$router.push({ name: 'QuestionAddPage', exam_id: this.exam_id, type: 'new' })
+      this.$router.push({ name: 'FlowAddPage', exam_id: this.exam_id, type: 'new' })
     },
     onCancel() {
       this.$router.push({ name: 'ExamManager' })

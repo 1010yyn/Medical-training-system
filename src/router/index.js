@@ -183,6 +183,20 @@ export const constantRoutes = [
         name: 'CourseManager',
         component: () => import('@/views/courseManager/courseManagerCentre'),
         meta: { title: '课程管理', icon: 'el-icon-collection' }
+      },
+      {
+        path: 'courseAddPage',
+        name: 'CourseAddPage',
+        component: () => import('@/views/courseManager/addPage'),
+        meta: { title: '课程管理', noCache: true },
+        hidden: true
+      },
+      {
+        path: 'flowAddPage',
+        name: 'FlowAddPage',
+        component: () => import('@/views/courseManager/addFlowPage'),
+        meta: { title: '流程管理', noCache: true },
+        hidden: true
       }
     ]
   },
@@ -197,9 +211,16 @@ export const constantRoutes = [
         meta: { title: '考试管理', icon: 'el-icon-document' }
       },
       {
-        path: 'addPage',
+        path: 'examAddPage',
         name: 'ExamAddPage',
         component: () => import('@/views/examManager/addPage'),
+        meta: { title: '考试管理', noCache: true },
+        hidden: true
+      },
+      {
+        path: 'questionAddPage',
+        name: 'QuestionAddPage',
+        component: () => import('@/views/examManager/addQuestionPage'),
         meta: { title: '考试管理', noCache: true },
         hidden: true
       },

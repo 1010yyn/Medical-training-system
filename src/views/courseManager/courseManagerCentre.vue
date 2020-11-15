@@ -80,6 +80,9 @@ export default {
     this.initCourseList()
   },
   methods: {
+    addExam() {
+      this.$router.push({ name: 'CourseAddPage' })
+    },
     initCourseList() {
       const data = { type: 'getCourseList' }
       getCourseList(data).then((response) => {
