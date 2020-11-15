@@ -214,7 +214,7 @@ export const constantRoutes = [
         path: 'examAddPage',
         name: 'ExamAddPage',
         component: () => import('@/views/examManager/addPage'),
-        meta: { title: '考试管理', noCache: true },
+        meta: { title: '考试管理' },
         hidden: true
       },
       {
@@ -237,6 +237,14 @@ export const constantRoutes = [
         component: () => import('@/views/examManager/modifyQuestionPage'),
         meta: { title: '考题管理', noCache: true },
         hidden: true
+      },
+      {
+        path: 'moidfyResultPage',
+        name: 'ResultModifyPage',
+        component: () => import('@/views/examManager/modifyResultPage'),
+        meta: { title: '考试管理', noCache: true },
+        hidden: true
+
       }
     ]
   }, {

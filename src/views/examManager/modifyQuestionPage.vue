@@ -18,7 +18,13 @@
           />
         </el-form-item>
         <el-form-item label="场景图">
-          <el-image :src="testpic1" />
+          <el-input
+            v-model="exam[currentIndex].picpath"
+            placeholder="请输入场景图地址链接"
+          />
+        </el-form-item>
+        <el-form-item>
+          <el-image :src="exam[currentIndex].picpath" />
         </el-form-item>
         <el-form-item>
           <el-button-group>
@@ -31,6 +37,10 @@
               type="primary"
               @click="onSubmit"
             >提交</el-button>
+            <el-button
+              type="primary"
+              @click="onDelete(currentIndex)"
+            >删除</el-button>
             <el-button
               type="primary"
               @click="onCancel"
@@ -59,8 +69,8 @@ export default {
       id: '',
       exam: [{ question_items: '' }],
       exam_info: '',
-      currentIndex: 0, // 题号
-      testpic1: require('@/icons/img/testpic1.jpg')
+      currentIndex: 0 // 题号
+      // testpic1: require('@/icons/img/testpic1.jpg')
     }
   },
   created() {
@@ -111,6 +121,10 @@ export default {
     },
     onCancel() {
       this.$router.push({ name: 'ExamManager' })
+    },
+    onDelete(index) {
+      this.exam.splice(index, index)
+      this.currentIndex = index - 1
     },
     // TODO--新增单条题目
     onSend() {

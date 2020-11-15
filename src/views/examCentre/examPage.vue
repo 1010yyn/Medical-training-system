@@ -3,87 +3,41 @@
   <div class="class-centre-container">
     <h1 class="class-centre-title">{{ title }}</h1>
     <el-card class="class-centre-card">
-      <el-carousel
-        v-show="showPPT"
-        class="class-centre-frame"
-        height="650px"
-        style="width:100%"
-      >
-        <el-carousel-item
-          v-for="item in courseList"
-          :key="item"
-        >
-          <el-image
-            class="image"
-            :src="item"
-            fit="scale-down"
-          />
-        </el-carousel-item>
-      </el-carousel>
-      <br>
+      <p class="stems">{{ currentIndex+1 }}. {{ exam[currentIndex].question_items }}</p>
       <el-button
-        v-show="showPPT"
         type="primary"
-        style="float:right;"
-        @click="closePPT"
+        icon="el-icon-edit"
+        @click="addButton(currentFrame)"
       >
-        下一部分
+        新建动作
       </el-button>
-      <br>
-      <br>
-      <div
-        v-show="!showPPT"
-        id="container"
-        class="card"
-      >
-        <h4> 1. 在如下场景中，若发生了紧急情况，而你是其中一位医生，接下来你该怎么做？请添加动作并点击录音按钮录制回答。</h4>
-        <div
-          class="card-header"
-          style="display: flex; flex-direction: row"
-        >
-          <p class="m-0">上次学习位置 </p>
+      <Frame
+        v-for="item in list"
+        v-show="item.isShow"
+        :key="item"
+        :button-loc="item.buttonLoc"
+        :picpath="item.picpath"
+        class="frame"
+      />
+      <div class="button">
+        <div style="margin:30px;">
           <el-button
             type="primary"
-            icon="el-icon-edit"
-            @click="addButton(currentFrame)"
-          >
-            新建动作
-          </el-button>
-        </div>
-        <div
-          id="video-card"
-          class="card-body"
-          style="padding: 0"
-        >
-          <h6 class="card-title"></h6>
-        </div>
-      </div>
-
-      <div
-        v-show="!showPPT"
-        id="edit_flow"
-        class="card card-primary card-outline"
-      >
-        <Frame
-          v-for="item in list"
-          v-show="item.isShow"
-          :key="item"
-          :button-loc="item.buttonLoc"
-          :picpath="item.picpath"
-          class="frame"
-        />
-        <div class="card-header">
-          <!-- <h5 class="m-0">编辑流程</h5> -->
+            icon="el-icon-microphone"
+            circle
+          />添加/修改答案
+          <el-button
+            type="success"
+            icon="el-icon-phone-outline"
+            circle
+          />试听答案
+          <el-button
+            type="danger"
+            icon="el-icon-delete"
+            circle
+          />删除答案
         </div>
         <div class="card-body">
-          <el-button
-            class="card add_sections"
-            type="primary"
-            style="margin:10px;float:left"
-            icon="el-icon-right"
-            circle
-            @click="onFirstClick"
-          />
           <li
             v-for="item in list"
             :key="item"
@@ -100,76 +54,64 @@
               style="margin:10px;float:left"
               icon="el-icon-right"
               circle
-              @click="onclick(item)"
             />
           </li>
           <el-button
             type="success"
             style="margin:10px;"
             @click="exit"
-          >完成学习</el-button>
+          >交卷</el-button>
         </div>
+        <!-- <el-button-group>
+          <el-button
+            type="primary"
+            @click="handleNext(currentIndex)"
+          >
+            下一题
+            <i class="el-icon-arrow-right el-icon--right"></i>
+          </el-button>
+        </el-button-group> -->
       </div>
-      <image-cropper
-        v-show="imagecropperShow"
-        :key="imagecropperKey"
-        :width="300"
-        :height="300"
-        url="https://httpbin.org/post"
-        lang-type="en"
-        @close="close"
-        @crop-upload-success="cropSuccess"
-      />
     </el-card>
   </div>
 </template>
 
 <script>
-import 'video.js/dist/video-js.css'
+import Recorder from 'js-audio-recorder'
 import Frame from '@/components/Frame/Frame'
-import ImageCropper from '@/components/ImageCropper'
+import { getExam, saveAnswer } from '@/api/exam'
 
 export default {
-  name: 'CoursePage',
-  components: { Frame, ImageCropper },
+  name: 'ExamPage',
+  components: { Frame },
   data() {
     return {
-      title: 'CoursePage',
       currentFrame: '', // 当前展示场景Object
-      course_id: '', // 当前课程编号
-      showPPT: true, // 展示PPT组件状态
-      imagecropperShow: false,
-      imagecropperKey: 0,
-      // TODO--图片路径
-      list: [{ name: '-1', isShow: true, picpath: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2441934127,243987338&fm=26&gp=0.jpg', buttonLoc: [] }, { name: '0', isShow: false, picpath: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1603692431749&di=7d09db0071eaa2f6b253315003834043&imgtype=0&src=http%3A%2F%2Fimg.51miz.com%2FElement%2F00%2F80%2F91%2F68%2Fcce47d81_E809168_9705c518.jpg%2521%2Fquality%2F90%2Funsharp%2Ftrue%2Fcompress%2Ftrue%2Fformat%2Fjpg', buttonLoc: [{ x: 1, y: 1 }, { x: 2, y: 2 }] }, { name: '1', isShow: false, picpath: 'https://imglf5.lf127.net/img/K2JMZkxjQi9SLzR1c0JPd29NT1E4UkovWDJMbEh2YU9heTd6aUxRN1lqMWhQUkFISTY3dCt3PT0.jpg?imageView&thumbnail=500x0&quality=96&stripmeta=0&type=jpg', buttonLoc: [{ x: 1, y: 1 }, { x: 2, y: 2 }] }, { name: '2', isShow: false, picpath: 'https://imglf4.lf127.net/img/K2JMZkxjQi9SLzR1c0JPd29NT1E4Y3ZHRDFhZG1zUHpteUlqbkZLNGVUSU1GK2N0eHUreDJRPT0.jpg?imageView&thumbnail=500x0&quality=96&stripmeta=0&type=jpg', buttonLoc: [{ x: 1, Y: 1 }, { x: 2, y: 2 }] }, { name: '3', isShow: false, picpath: 'https://imglf4.lf127.net/img/K2JMZkxjQi9SLzR1c0JPd29NT1E4Y0VkbndpM2QxVnFTWGxWcmpFR0tMVU9IdFlnUDRqYnRBPT0.jpg?imageView&thumbnail=500x0&quality=96&stripmeta=0&type=jpg', buttonLoc: [{ x: 1, y: 1 }, { x: 2, y: 2 }] }],
-      courseList: [require('@/sample/pic1.jpg'), require('@/sample/pic2.jpg'), require('@/sample/pic3.jpg'), require('@/sample/pic4.jpg'), require('@/sample/pic5.jpg'), require('@/sample/pic6.jpg')]
+      title: 'ExamPage',
+      exam_id: '',
+      recorder: new Recorder(),
+      player: new window.Audio(),
+      currentIndex: 0, // 题号
+      buttonStatus: [false, true], // 部分按钮显示状态
+      rcdStat: 0, // 与aslist里面的rcdStat匹配确认停止的是否是同一个录音文件
+      testpic1: require('@/icons/img/testpic1.jpg'),
+      exam: [{ question_items: '在如下场景中，若发生了紧急情况，而你是其中一位医生，接下来你该怎么做？请添加动作并点击录音按钮录制回答。' }],
+      answerList: [{ question_id: 0, answer: [], status: 0, rcdStat: 0 }],
+      list: [{ name: '-1', isShow: true, picpath: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2441934127,243987338&fm=26&gp=0.jpg', buttonLoc: [] }, { name: '0', isShow: false, picpath: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1603692431749&di=7d09db0071eaa2f6b253315003834043&imgtype=0&src=http%3A%2F%2Fimg.51miz.com%2FElement%2F00%2F80%2F91%2F68%2Fcce47d81_E809168_9705c518.jpg%2521%2Fquality%2F90%2Funsharp%2Ftrue%2Fcompress%2Ftrue%2Fformat%2Fjpg', buttonLoc: [{ x: 1, y: 1 }, { x: 2, y: 2 }] }, { name: '1', isShow: false, picpath: 'https://imglf5.lf127.net/img/K2JMZkxjQi9SLzR1c0JPd29NT1E4UkovWDJMbEh2YU9heTd6aUxRN1lqMWhQUkFISTY3dCt3PT0.jpg?imageView&thumbnail=500x0&quality=96&stripmeta=0&type=jpg', buttonLoc: [{ x: 1, y: 1 }, { x: 2, y: 2 }] }, { name: '2', isShow: false, picpath: 'https://imglf4.lf127.net/img/K2JMZkxjQi9SLzR1c0JPd29NT1E4Y3ZHRDFhZG1zUHpteUlqbkZLNGVUSU1GK2N0eHUreDJRPT0.jpg?imageView&thumbnail=500x0&quality=96&stripmeta=0&type=jpg', buttonLoc: [{ x: 1, Y: 1 }, { x: 2, y: 2 }] }, { name: '3', isShow: false, picpath: 'https://imglf4.lf127.net/img/K2JMZkxjQi9SLzR1c0JPd29NT1E4Y0VkbndpM2QxVnFTWGxWcmpFR0tMVU9IdFlnUDRqYnRBPT0.jpg?imageView&thumbnail=500x0&quality=96&stripmeta=0&type=jpg', buttonLoc: [{ x: 1, y: 1 }, { x: 2, y: 2 }] }]
     }
   },
   created() {
-    this.course_id = this.$route.params
     this.currentFrame = this.list[0]
+    // this.exam_id = this.$route.params.exam_id
+    // this.title = this.$route.params.title
+    // console.log('获取试题' + this.exam_id + '数据')
+    // this.handleGetExam(this.exam_id)
   },
   methods: {
-    // 点击第一个场景前的添加按钮
-    onFirstClick() {
-      this.imagecropperShow = true
-      console.log('点击第一个')
-      var tmp = { name: 888, isShow: false, picpath: 'https://imglf4.lf127.net/img/K2JMZkxjQi9SLzR1c0JPd29NT1E4Y0VkbndpM2QxVnFTWGxWcmpFR0tMVU9IdFlnUDRqYnRBPT0.jpg?imageView&thumbnail=500x0&quality=96&stripmeta=0&type=jpg', buttonLoc: [] }// 在列表最前面添加一个元素
-      this.list.unshift(tmp)
-    },
-    // 添加新场景
-    onclick(item) {
-      this.imagecropperShow = true
-      console.log(item)
-      var index = this.list.indexOf(item)
-      var oldList = this.list.slice(0, index + 1)// 取当前添加位置及以前的list片
-      var newList = this.list.slice(index + 1, this.list.length)// 取当前添加位置以后的list片
-      console.log(oldList)
-      console.log('索引：' + index)
-      console.log(newList)
-      var newItem = { name: '384', isShow: false, picpath: 'https://imglf4.lf127.net/img/K2JMZkxjQi9SLzR1c0JPd29NT1E4Y0VkbndpM2QxVnFTWGxWcmpFR0tMVU9IdFlnUDRqYnRBPT0.jpg?imageView&thumbnail=500x0&quality=96&stripmeta=0&type=jpg', buttonLoc: [] }
-      this.list = oldList.concat(newItem, newList) // 以合并的方式插入新的item
-      console.log(this.list)
+    // 添加录音按钮
+    addButton(item) {
+      console.log(this.currentFrame)
+      item.buttonLoc.push({ x: '', y: '' })
     },
     // 切换场景
     onSwitch(item) {
@@ -180,33 +122,116 @@ export default {
       item.isShow = true
       this.currentFrame = item
     },
-    // 添加场景图
-    addPic() {
-
-    },
-    cropSuccess(resData) {
-      this.imagecropperShow = false
-      this.imagecropperKey = this.imagecropperKey + 1
-      this.image = resData.files.avatar
-    },
-    close() {
-      this.imagecropperShow = false
-    },
-    // 添加录音按钮
-    addButton(item) {
-      console.log(this.currentFrame)
-      item.buttonLoc.push({ x: '', y: '' })
-    },
-    closePPT() {
-      this.showPPT = false
-    },
     exit() {
-      this.$router.push({ name: 'CourseList' })
+      this.$confirm('你确定要交卷吗?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$message({
+          type: 'success',
+          message: '交卷成功!'
+        })
+        this.$router.push({ name: 'ExamResult' })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消交卷'
+        })
+      })
+    },
+    // // 添加--修改状态，list++，然后录音
+    // // 修改--直接重新录音
+    // handleRecord(index) {
+    //   Recorder.getPermission().then(() => {
+    //     console.log('给权限了')
+    //     // 未录音/停止正在录制的音频【正确状态】
+    //     console.log('index:' + index)
+    //     console.log('录制前' + this.answerList[index].rcdStat + '' + this.rcdStat)
+    //     if (this.rcdStat === this.answerList[index].rcdStat) {
+    //       // 未录音状态
+    //       if (this.rcdStat === 0) {
+    //         if (this.answerList[index].status === 0) {
+    //           // 修改状态
+    //           this.answerList[index].status = 1
+    //           // list添加
+    //           this.answerList.push({ question_id: this.currentIndex, answer: [], status: 0, rcdStat: 0 })
+    //         }
+    //         alert('关闭对话框后开始录制回答。回答结束后，再次点击蓝色按钮结束录制！')
+    //         // 修改录音状态标志
+    //         this.answerList[index].rcdStat = 1
+    //         this.rcdStat = 1
+    //         console.log('开始录制')
+    //         this.recorder.start()
+    //       } else if (this.rcdStat === 1) { // 停止正在录制的音频
+    //         // this.recorder.stop()
+    //         this.answerList[index].answer = this.recorder.getWAVBlob()
+    //         console.log(this.answerList[index].answer)
+    //         // 录音状态标志置0
+    //         this.answerList[index].rcdStat = 0
+    //         this.rcdStat = 0
+    //         console.log('录制结束')
+    //       }
+    //     } else {
+    //       alert('当前录制回答非此步骤，请点击原步骤停止录制！')
+    //     }
+    //   }, (error) => {
+    //     console.log(`${error.name} : ${error.message}`)
+    //   })
+    // },
+    // // 播放录音
+    // handleListen(index) {
+    //   console.log('试听音频')
+    //   this.player.src = window.URL.createObjectURL(this.answerList[index].answer)
+    //   this.player.play()
+    // },
+    // // 删除录音
+    // handleDelete(index) {
+    //   this.answerList.splice(index, 1)
+    // },
+    // // 下一题
+    // handleNext(index) {
+    //   if (this.exam[index + 1]) {
+    //     // 保存音频数据
+    //     this.handleSend(this.answerList)
+    //     this.recorder.destroy()
+    //     // 清空answerList
+    //     this.answerList = []
+    //     this.answerList.push({ question_id: index + 1, answer: [], status: 0, rcdStat: 0 })
+    //     // 切换题目
+    //     this.currentIndex++
+    //   } else {
+    //     alert('已是最后一题！')
+    //   }
+    // },
+    // // 上一题
+    // // handlePrior(index) {
+    // //   console.log(this.currentIndex)
+    // //   if (index === 0) {
+    // //     alert('已是第一题！')
+    // //   } else {
+    // //     this.handleSend(this.answerList)
+    // //     this.currentIndex--
+    // //   }
+    // // },
+    // // 获取试题数据
+    handleGetExam(exam_id) {
+      const data = { type: 'getExam', exam_id: exam_id }
+      getExam(data).then((response) => {
+        console.log(response)
+        this.exam = response.data
+      })
+    },
+    // TODO--发送数据保存
+    handleSend(answerList) {
+      const data = { type: 'saveAnswer', answerList: this.answerList }
+      saveAnswer(data).then((response) => {
+        console.log(response)
+      })
     }
   }
 }
 </script>
-
 <style lang='scss' scoped>
 .class-centre {
   &-container {
@@ -216,20 +241,15 @@ export default {
       line-height: 46px;
       color: #409eff;
       border-bottom: solid 2px #409eff;
-      margin: 30px;
+      margin-bottom: 30px;
     }
     .class-centre-card {
-      margin: 30px;
-      min-height: 650px;
-
-      .class-centre-frame {
-        el-carousel-item {
-          margin: 0 auto;
-        }
-      }
-    }
-    .card-primary {
+      margin-right: 30px;
+      margin-left: 30px;
       list-style: none;
+      .button {
+        text-align: center;
+      }
       .flow_item {
         float: left;
       }

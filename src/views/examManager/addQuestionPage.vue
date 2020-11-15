@@ -19,12 +19,12 @@
         </el-form-item>
         <el-form-item label="场景图">
           <el-input
-            v-model="picpath"
+            v-model="exam[currentIndex].picpath"
             placeholder="请输入场景图地址链接"
           />
         </el-form-item>
         <el-form-item>
-          <el-image :src="picpath" />
+          <el-image :src="exam[currentIndex].picpath" />
         </el-form-item>
         <el-form-item>
           <el-button-group>
@@ -37,6 +37,10 @@
               type="primary"
               @click="onSubmit"
             >提交</el-button>
+            <el-button
+              type="primary"
+              @click="onDelete(currentIndex)"
+            >删除</el-button>
             <el-button
               type="primary"
               @click="onCancel"
@@ -60,24 +64,27 @@ export default {
   data() {
     return {
       title: '添加试题',
-      id: '',
-      exam: [{ question_items: '' }],
+      id: '', // 考试编号
+      exam: [{ question_items: '', picpath: '' }],
       exam_info: '',
-      currentIndex: 0, // 题号
-      testpic1: require('@/icons/img/testpic1.jpg'),
-      picpath: ''
+      currentIndex: 0 // 当前编辑题号
     }
   },
   methods: {
     handleNext(index) {
+      this.exam.push({ question_items: '', picpath: '' })
       this.currentIndex++
-      console.log(this.currentIndex)
     },
-    hendlePrior(index) {
+    handlePrior(index) {
       this.currentIndex--
     },
     onSubmit() {
+      // TODO--上传数据
       this.$router.push({ name: 'ExamManager' })
+    },
+    onDelete(index) {
+      this.exam.splice(index, index)
+      this.currentIndex = index - 1
     },
     onCancel() {
       this.$router.push({ name: 'ExamManager' })

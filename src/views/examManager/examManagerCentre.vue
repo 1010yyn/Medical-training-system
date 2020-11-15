@@ -2,24 +2,68 @@
   <div class="class-centre-container">
     <h1 class="class-centre-title">{{ title }}</h1>
     <div class="class-centre-table">
-      <el-button type="primary" icon="el-icon-edit" @click="addExam">添加新考试</el-button>
-      <el-table style="width: 100%;padding-top: 15px;" :data="list">
-        <el-table-column label="考试名称" min-width="100" prop="exam_title">
+      <el-button
+        type="primary"
+        icon="el-icon-edit"
+        @click="addExam"
+      >添加新考试</el-button>
+      <el-table
+        style="width: 100%;padding-top: 15px;"
+        :data="list"
+      >
+        <el-table-column
+          label="考试名称"
+          min-width="50"
+          prop="exam_title"
+        >
           <template slot-scope="scope">{{ scope.row.exam_title }}</template>
         </el-table-column>
-        <el-table-column label="发布科室" min-width="100" align="center" prop="office">
+        <el-table-column
+          label="发布科室"
+          min-width="50"
+          align="center"
+          prop="office"
+        >
           <template slot-scope="scope">{{ scope.row.office }}</template>
         </el-table-column>
-        <el-table-column label="起始时间" min-width="100" align="center" prop="start">
+        <el-table-column
+          label="起始时间"
+          min-width="50"
+          align="center"
+          prop="start"
+        >
           <template slot-scope="scope">{{ scope.row.start }}</template>
         </el-table-column>
-        <el-table-column label="结束时间" min-width="100" align="center" prop="end">
+        <el-table-column
+          label="结束时间"
+          min-width="50"
+          align="center"
+          prop="end"
+        >
           <template slot-scope="scope">{{ scope.row.end }}</template>
         </el-table-column>
-        <el-table-column label="管理" min-width="100" align="center" prop="manage">
+        <el-table-column
+          label="管理"
+          min-width="100"
+          align="center"
+          prop="manage"
+        >
           <template slot-scope="scope">
-            <el-button plain type="primary" @click="handleModify(scope.$index)">修改</el-button>
-            <el-button plain type="danger" @click="handleDelete(scope.$index)">删除</el-button>
+            <el-button
+              plain
+              type="primary"
+              @click="handleModify(scope.$index)"
+            >修改</el-button>
+            <el-button
+              plain
+              type="success"
+              @click="handleResult(scope.$index)"
+            >管理</el-button>
+            <el-button
+              plain
+              type="danger"
+              @click="handleDelete(scope.$index)"
+            >删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -33,7 +77,7 @@ export default {
   data() {
     return {
       title: '考试管理',
-      list: ''
+      list: []
     }
   },
   created() {
@@ -55,11 +99,14 @@ export default {
       console.log('exam_id:' + this.list[index].exam_id)
       this.$router.push({ name: 'ExamModifyPage', params: { exam_id: this.list[index].exam_id } })
     },
+    handleResult(index) {
+      this.$router.push({ name: 'ResultModifyPage', params: { exam_id: this.list[index].exam_id } })
+    },
     handleDelete(index) {
       // TODO--删除
+      this.list.splice(index, index + 1)
     }
   }
-
 }
 </script>
 

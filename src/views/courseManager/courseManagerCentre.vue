@@ -13,14 +13,15 @@
       >
         <el-table-column
           label="标题"
-          min-width="200"
+          min-width="50"
           prop="course_title"
+          align="center"
         >
           <template slot-scope="scope">{{ scope.row.course_title }}</template>
         </el-table-column>
         <el-table-column
           label="发布科室"
-          min-width="100"
+          min-width="50"
           align="center"
           prop="office"
         >
@@ -28,7 +29,7 @@
         </el-table-column>
         <el-table-column
           label="起始时间"
-          min-width="100"
+          min-width="50"
           align="center"
           prop="start"
         >
@@ -36,7 +37,7 @@
         </el-table-column>
         <el-table-column
           label="结束时间"
-          min-width="100"
+          min-width="50"
           align="center"
           prop="end"
         >
@@ -44,7 +45,7 @@
         </el-table-column>
         <el-table-column
           label="管理"
-          min-width="100"
+          min-width="50"
           align="center"
           prop="manage"
         >

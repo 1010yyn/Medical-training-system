@@ -1,25 +1,38 @@
 <template>
   <div class="class-centre-container">
     <h1 class="class-centre-title">{{ title }}</h1>
-    <cd
-      v-for="item in list"
-      :key="item"
-      :text="list.text"
-      :user_name="user_name"
-    />
+    <p style="text-align: center; margin: 50px 0 20px">使用 scoped-slot 自定义数据项</p>
+    <div style="text-align: center">
+    </div>
   </div>
 </template>
 
 <script>
-import cd from '../answering/platform/components/replyItem'
 
 export default {
-  components: { cd },
   data() {
+    const generateData = _ => {
+      const data = []
+      for (let i = 1; i <= 15; i++) {
+        data.push({
+          key: i,
+          label: `备选项 ${i}`,
+          disabled: i % 4 === 0
+        })
+      }
+      return data
+    }
     return {
+      data: generateData(),
+      value4: [1],
       title: '测试页面',
       list: [{ name: '1', isShow: true, pic: require('@/sample/pic1.jpg'), buttonLoc: [{ x: 1, y: 1 }, { x: 2, y: 2 }] }, { name: '2', isShow: false, pic: require('@/sample/pic2.jpg'), buttonLoc: [{ x: 1, y: 1 }, { x: 3, y: 3 }, { x: 2, y: 2 }] }],
       courseList: [require('@/sample/pic1.jpg'), require('@/sample/pic2.jpg'), require('@/sample/pic3.jpg'), require('@/sample/pic4.jpg'), require('@/sample/pic5.jpg'), require('@/sample/pic6.jpg')]
+    }
+  },
+  methods: {
+    handleChange(value, direction, movedKeys) {
+      console.log(value, direction, movedKeys)
     }
   }
 }

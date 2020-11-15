@@ -16,6 +16,7 @@
             :completed="item.completed"
             :start="item.start"
             :end="item.end"
+            @click.native.prevent="handleClick()"
           />
         </el-card>
       </el-timeline-item>
@@ -47,6 +48,10 @@ export default {
         console.log(response)
         this.historyList = response.data
       })
+    },
+    handleClick() {
+      console.log('点击课程卡片')
+      this.$router.push({ name: 'CoursePage' })
     }
   }
 }

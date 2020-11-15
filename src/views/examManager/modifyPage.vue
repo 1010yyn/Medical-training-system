@@ -2,7 +2,12 @@
   <div class="class-centre-container">
     <h1 class="class-centre-title">{{ title }}</h1>
     <el-card class="class-centre-card">
-      <el-form ref="exam" class="class-centre-form" :model="exam" label-width="120px">
+      <el-form
+        ref="exam"
+        class="class-centre-form"
+        :model="exam"
+        label-width="120px"
+      >
         <el-form-item label="标 题">
           <el-input v-model="exam.exam_title" />
         </el-form-item>
@@ -16,8 +21,42 @@
           <el-input v-model="exam.end" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit">提交</el-button>
-          <el-button type="primary" @click="onModify">修改试题</el-button>
+          <div>
+            <el-transfer
+              v-model="value4"
+              filterable
+              :left-default-checked="[2, 3]"
+              :right-default-checked="[1]"
+              :titles="['所有人员', '参试人员']"
+              :button-texts="['取消', '加入']"
+              :format="{ noChecked: '${total}', hasChecked: '${checked}/${total}'}"
+              :data="data"
+              style="text-align: left; display: inline-block"
+              @change="handleChange"
+            >
+              <span slot-scope="{ option }">{{ option.key }} - {{ option.label }}</span>
+              <el-button
+                slot="left-footer"
+                size="small"
+                class="transfer-footer"
+              >操作</el-button>
+              <el-button
+                slot="right-footer"
+                size="small"
+                class="transfer-footer"
+              >操作</el-button>
+            </el-transfer>
+          </div>
+        </el-form-item>
+        <el-form-item>
+          <el-button
+            type="primary"
+            @click="onSubmit"
+          >提交</el-button>
+          <el-button
+            type="primary"
+            @click="onModify"
+          >修改试题</el-button>
           <el-button @click="onCancel">取 消</el-button>
         </el-form-item>
       </el-form>
@@ -29,10 +68,23 @@
 import { getExamInfo, updateExamInfo } from '@/api/exam'
 export default {
   data() {
+    const generateData = _ => {
+      const data = []
+      for (let i = 1; i <= 15; i++) {
+        data.push({
+          key: i,
+          label: `护士 ${i}`,
+          disabled: i % 4 === 0
+        })
+      }
+      return data
+    }
     return {
       title: '修改考试信息',
       id: '',
-      exam: ''
+      exam: [],
+      data: generateData(),
+      value4: [1]
     }
   },
   created() {
