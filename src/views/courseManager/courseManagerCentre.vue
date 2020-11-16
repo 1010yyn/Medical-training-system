@@ -73,7 +73,7 @@ export default {
   data() {
     return {
       title: '课程管理',
-      list: [{ course_id: '1111', course_title: '12313', office: 'wewqewq', start: '2332r' }, { course_title: '123dwrewr3', office: 'weerqqewqedfvfhdewq', start: '213432332r' }]
+      list: [{ course_id: '1111', course_title: '课程1', office: '口腔科', start: '2020-11-1', end: '2020-11-31' }, { course_title: '课程2', office: '消化内科', start: '2020-10-25', end: '2020-11-31' }]
     }
   },
   created() {
@@ -91,8 +91,8 @@ export default {
         this.list = response.data
       })
     },
-    openMessage(row, event, column) {
-      this.$router.push({ name: 'MessagePage', params: { message_id: row.message_id } })
+    handleModify() {
+      this.$router.push({ name: 'CourseModifyPage' })
     }
   }
 }

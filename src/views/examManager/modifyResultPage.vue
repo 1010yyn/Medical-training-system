@@ -9,8 +9,8 @@
       <el-button
         plain
         type="success"
-        @click="handleDownload"
         style="float:right"
+        @click="handleDownload"
       >导出excel表格</el-button>
       <el-table
         style="width: 100%;padding-top: 15px;"

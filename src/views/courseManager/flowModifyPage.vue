@@ -106,7 +106,7 @@ export default {
       imagecropperShow: false,
       imagecropperKey: 0,
       // TODO--图片路径
-      list: [{ name: '第一个场景。在该场景中，你是一位护士，如果此时发生了紧急情况，那么你应该做些什么呢？请点击添加动作按钮添加动作，并录制回答。', isShow: true, picpath: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2441934127,243987338&fm=26&gp=0.jpg', buttonLoc: [] }],
+      list: [{ name: '-1', isShow: true, picpath: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2441934127,243987338&fm=26&gp=0.jpg', buttonLoc: [] }, { name: '0', isShow: false, picpath: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1603692431749&di=7d09db0071eaa2f6b253315003834043&imgtype=0&src=http%3A%2F%2Fimg.51miz.com%2FElement%2F00%2F80%2F91%2F68%2Fcce47d81_E809168_9705c518.jpg%2521%2Fquality%2F90%2Funsharp%2Ftrue%2Fcompress%2Ftrue%2Fformat%2Fjpg', buttonLoc: [{ x: 1, y: 1 }, { x: 2, y: 2 }] }, { name: '1', isShow: false, picpath: 'https://imglf5.lf127.net/img/K2JMZkxjQi9SLzR1c0JPd29NT1E4UkovWDJMbEh2YU9heTd6aUxRN1lqMWhQUkFISTY3dCt3PT0.jpg?imageView&thumbnail=500x0&quality=96&stripmeta=0&type=jpg', buttonLoc: [{ x: 1, y: 1 }, { x: 2, y: 2 }] }, { name: '2', isShow: false, picpath: 'https://imglf4.lf127.net/img/K2JMZkxjQi9SLzR1c0JPd29NT1E4Y3ZHRDFhZG1zUHpteUlqbkZLNGVUSU1GK2N0eHUreDJRPT0.jpg?imageView&thumbnail=500x0&quality=96&stripmeta=0&type=jpg', buttonLoc: [{ x: 1, Y: 1 }, { x: 2, y: 2 }] }, { name: '3', isShow: false, picpath: 'https://imglf4.lf127.net/img/K2JMZkxjQi9SLzR1c0JPd29NT1E4Y0VkbndpM2QxVnFTWGxWcmpFR0tMVU9IdFlnUDRqYnRBPT0.jpg?imageView&thumbnail=500x0&quality=96&stripmeta=0&type=jpg', buttonLoc: [{ x: 1, y: 1 }, { x: 2, y: 2 }] }],
       courseList: [require('@/sample/pic1.jpg'), require('@/sample/pic2.jpg'), require('@/sample/pic3.jpg'), require('@/sample/pic4.jpg'), require('@/sample/pic5.jpg'), require('@/sample/pic6.jpg')]
     }
   },
@@ -134,7 +134,7 @@ export default {
       console.log(oldList)
       console.log('索引：' + index)
       console.log(newList)
-      var newItem = { name: '新场景', isShow: false, picpath: 'https://ns-strategy.cdn.bcebos.com/ns-strategy/upload/fc_big_pic/part-00519-913.jpg', buttonLoc: [] }
+      var newItem = { name: '384', isShow: false, picpath: 'https://imglf4.lf127.net/img/K2JMZkxjQi9SLzR1c0JPd29NT1E4Y0VkbndpM2QxVnFTWGxWcmpFR0tMVU9IdFlnUDRqYnRBPT0.jpg?imageView&thumbnail=500x0&quality=96&stripmeta=0&type=jpg', buttonLoc: [] }
       this.list = oldList.concat(newItem, newList) // 以合并的方式插入新的item
       console.log(this.list)
     },

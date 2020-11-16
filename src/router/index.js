@@ -197,6 +197,20 @@ export const constantRoutes = [
         component: () => import('@/views/courseManager/addFlowPage'),
         meta: { title: '流程管理', noCache: true },
         hidden: true
+      },
+      {
+        path: 'courseModifyPage',
+        name: 'CourseModifyPage',
+        component: () => import('@/views/courseManager/courseModifyPage'),
+        meta: { title: '课程管理', noCache: true },
+        hidden: true
+      },
+      {
+        path: 'flowModifyPage',
+        name: 'FlowModifyPage',
+        component: () => import('@/views/courseManager/flowModifyPage'),
+        meta: { title: '流程管理', noCache: true },
+        hidden: true
       }
     ]
   },

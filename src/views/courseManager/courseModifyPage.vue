@@ -78,7 +78,7 @@ export default {
       return data
     }
     return {
-      title: '添加课程信息',
+      title: '修改课程信息',
       id: '',
       exam: {},
       exam_id: '',
@@ -96,7 +96,7 @@ export default {
       this.exam.exam_id = this.CurrentTime
       console.log(this.exam.exam_id)
       this.exam_id = this.CurrentTime
-      this.$router.push({ name: 'FlowAddPage', exam_id: this.exam_id, type: 'new' })
+      this.$router.push({ name: 'FlowModifyPage', exam_id: this.exam_id, type: 'new' })
     },
     onCancel() {
       this.$router.push({ name: 'ExamManager' })
